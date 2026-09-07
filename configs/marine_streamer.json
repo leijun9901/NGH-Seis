@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "status": "frozen for the NGH-Seis v1.0 release",
+  "purpose": "reproduce the marine-streamer acoustic observations and seafloor-relative migration view used by NGH-Seis v1.0",
+  "frozen_on": "2026-08-26",
+  "propagation_grid": {
+    "dx_m": 5.0,
+    "dz_m": 5.0,
+    "nx": 1229,
+    "nz": 1001,
+    "width_m": 6145.0,
+    "depth_m": 5005.0,
+    "water_points_per_wavelength_at_1500mps_35hz": 8.5714,
+    "minimum_model_points_per_effective_wavelength_gate": 6.0
+  },
+  "recording_candidate": {
+    "source_peak_frequency_hz": 14.0,
+    "effective_max_frequency_factor": 2.5,
+    "effective_max_frequency_hz": 35.0,
+    "dt_s": 0.004,
+    "nt": 1501,
+    "record_length_s": 6.0,
+    "fd_accuracy_order": 8,
+    "pml_width_cells": 20,
+    "source_delay_s": 0.12,
+    "surface_boundary": "absorbing PML; no pressure-release free surface",
+    "attenuation": "none",
+    "added_noise": "none"
+  },
+  "marine_acquisition_candidate": {
+    "role": "49-shot reference geometry used by the shot-density gate and as the parent grid for the frozen 25-shot subset",
+    "shot_count": 49,
+    "shot_spacing_m": 75.0,
+    "shot_start_m": 2200.0,
+    "shot_end_m": 5800.0,
+    "receiver_count": 128,
+    "receiver_spacing_m": 15.0,
+    "near_offset_m": 100.0,
+    "maximum_offset_m": 2005.0,
+    "source_depth_m": 10.0,
+    "receiver_depth_m": 15.0,
+    "streamer_direction": "receivers trail to smaller x than the source",
+    "grid_exactness": "all coordinates are exact integer multiples of the 5 m propagation grid"
+  },
+  "release_acquisition": {
+    "shot_count": 25,
+    "parent_49_zero_based_indices": [
+      0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24,
+      26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48
+    ],
+    "effective_shot_spacing_m": 150.0,
+    "shot_start_m": 2200.0,
+    "shot_end_m": 5800.0,
+    "receiver_count_per_shot": 128,
+    "receiver_spacing_m": 15.0,
+    "near_offset_m": 100.0,
+    "maximum_offset_m": 2005.0,
+    "source_depth_m": 10.0,
+    "receiver_depth_m": 15.0,
+    "admission_evidence": "sample 0001 25-vs-49 image correlation 0.9989088 with no material worsening of directional-artifact gates"
+  },
+  "fixed_preprocessing": {
+    "demean_each_trace": true,
+    "butterworth_order": 4,
+    "bandpass_hz": [3.0, 28.0],
+    "zero_phase": true,
+    "direct_water_wave_velocity_m_s": 1500.0,
+    "direct_mute_extra_s": 0.08,
+    "direct_mute_taper_s": 0.06,
+    "time_gain_power": 0.65,
+    "receiver_edge_taper_fraction": 0.08,
+    "record_end_taper_fraction": 0.04,
+    "per_trace_agc": false,
+    "per_sample_training_normalization": false
+  },
+  "field_aligned_release_view": {
+    "actual_trace_count": 95,
+    "padded_trace_count": 96,
+    "horizontal_spacing_m": 37.5,
+    "horizontal_interval_extent_m": 3525.0,
+    "vertical_sample_count": 512,
+    "vertical_spacing_m": 3.0,
+    "vertical_extent_m": 1536.0,
+    "water_samples_above_picked_seafloor": 64,
+    "sediment_samples_below_picked_seafloor": 448,
+    "network_input_shape": [1, 512, 96],
+    "network_target_shape": [2, 512, 96],
+    "coordinate_rule": "seafloor-relative sampling with anti-alias filtering before lateral decimation",
+    "physical_pixel_note": "the 3 m vertical and 37.5 m horizontal spacings are intentionally anisotropic; array shape does not imply square physical pixels"
+  },
+  "amplitude_protocol": {
+    "synthetic": "one robust scale fitted only on the frozen synthetic training split",
+    "field": "separate label-free scalar/spectral calibration fitted only on designated EW0008 calibration crosslines",
+    "claim": "zero-label field calibration, not uncalibrated zero-shot",
+    "held_out_field_crosslines_must_not_affect_calibration": true
+  },
+  "admitted_quality_evidence": [
+    "geology-only full-window coverage checks",
+    "uniform-medium travel-time and grid-convergence checks",
+    "PML reflection checks",
+    "25-vs-49-shot density and directional-artifact gate",
+    "seafloor-relative resampling with lateral anti-alias filtering",
+    "1000 accepted samples passed finite-value, shape, saturation and RTM image gates"
+  ],
+  "declared_limitations": [
+    "two-dimensional acoustic approximation",
+    "absorbing top boundary without a pressure-release free surface",
+    "no intrinsic attenuation or added acquisition noise",
+    "regional ODP-constrained stochastic priors rather than through-well Site 997 inversion",
+    "output is an acoustic adjoint-state migration or RTM-style velocity gradient, not industrial amplitude-preserving PSDM"
+  ]
+}

@@ -1,0 +1,8 @@
+numpy>=2.0,<3
+scipy>=1.15,<2
+matplotlib>=3.10,<4
+numba>=0.61,<1
+torch==2.5.1
+pytest>=8,<9
+deepwave==0.0.27
+jupyterlab>=4,<5

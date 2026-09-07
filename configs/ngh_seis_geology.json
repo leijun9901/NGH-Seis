@@ -1,0 +1,690 @@
+{
+  "version": "NGH-Seis v1.0",
+  "scope": "Frozen geological and petrophysical configuration for the NGH-Seis v1.0 benchmark.",
+  "grid": {
+    "nx_physical": 1229,
+    "nx_network": 96,
+    "dx_m": 5.0,
+    "nz": 1001,
+    "dz_m": 5.0,
+    "depth_extent_m": 5005.0
+  },
+  "network_crop": {
+    "nz": 512,
+    "samples_above_seafloor": 64,
+    "samples_below_seafloor": 448,
+    "pad_right_traces": 1,
+    "output_dz_m": 3.0,
+    "output_dx_m": 37.5,
+    "x_start_m": 1310.0,
+    "physical_trace_count": 95,
+    "padded_trace_count": 96
+  },
+  "geological_priors": {
+    "water_depth_m": [
+      2700.0,
+      3000.0
+    ],
+    "seafloor_relief_m": [
+      20.0,
+      70.0
+    ],
+    "bsr_depth_mbsf": [
+      400.0,
+      520.0
+    ],
+    "hydrate_occurrence_mbsf": [
+      185.0,
+      500.0
+    ],
+    "background_porosity_at_seafloor": [
+      0.6,
+      0.66
+    ],
+    "porosity_compaction_length_m": [
+      1800.0,
+      2800.0
+    ],
+    "hydrate_pore_saturation_background": [
+      0.015,
+      0.07
+    ],
+    "hydrate_pore_saturation_local_max": [
+      0.1,
+      0.22
+    ],
+    "free_gas_pore_saturation_background": [
+      0.002,
+      0.018
+    ],
+    "free_gas_pore_saturation_local_max": [
+      0.02,
+      0.08
+    ],
+    "free_gas_zone_thickness_m": [
+      30.0,
+      150.0
+    ],
+    "structural_fault_prior": {
+      "x_model_fraction": [
+        0.35,
+        0.68
+      ],
+      "throw_m": [
+        18.0,
+        45.0
+      ],
+      "damage_zone_halfwidth_m": [
+        80.0,
+        145.0
+      ],
+      "rationale": "Finite-width fault deformation distinguishes a narrow migration chimney from the broad, unfaulted anticlinal closure."
+    }
+  },
+  "saturation_model": {
+    "name": "ODP Leg 164 regional saturation prior",
+    "definition": "Sh and Sg are fractions of total pore volume",
+    "scaling": "mean-matched smooth tanh asymptote; no hard clipping plateau",
+    "hydrate_top_mbsf": [
+      180.0,
+      205.0
+    ],
+    "hydrate_vertical_distribution": {
+      "diffuse_weight": 0.32,
+      "upper_enrichment_center_mbsf": [
+        210.0,
+        245.0
+      ],
+      "upper_enrichment_sigma_m": [
+        18.0,
+        42.0
+      ],
+      "upper_enrichment_weight": [
+        0.25,
+        0.65
+      ],
+      "near_bsr_center_offset_m": [
+        35.0,
+        85.0
+      ],
+      "near_bsr_sigma_m": [
+        28.0,
+        70.0
+      ],
+      "near_bsr_weight": [
+        0.45,
+        0.9
+      ]
+    },
+    "gas_decay_length_m": [
+      35.0,
+      90.0
+    ],
+    "maximum_Sh_plus_Sg": 0.25,
+    "controlled_coexistence": {
+      "probability": 0.35,
+      "thickness_m": [
+        10.0,
+        50.0
+      ],
+      "hydrate_mean": [
+        0.004,
+        0.015
+      ],
+      "hydrate_local_soft_cap": [
+        0.015,
+        0.035
+      ],
+      "interpretation": "low-saturation hydrate tail below the BSR; BSR marks the top of free gas rather than an imposed exact hydrate termination"
+    },
+    "styles": {
+      "diffuse_continuous_bsr": {
+        "hydrate_zone_mean": [
+          0.025,
+          0.05
+        ],
+        "hydrate_local_soft_cap": [
+          0.11,
+          0.17
+        ],
+        "gas_zone_mean": [
+          0.004,
+          0.012
+        ],
+        "gas_local_soft_cap": [
+          0.025,
+          0.05
+        ],
+        "free_gas_zone_thickness_m": [
+          35.0,
+          105.0
+        ]
+      },
+      "localized_enriched_lenses": {
+        "hydrate_zone_mean": [
+          0.015,
+          0.035
+        ],
+        "hydrate_local_soft_cap": [
+          0.14,
+          0.21
+        ],
+        "gas_zone_mean": [
+          0.004,
+          0.012
+        ],
+        "gas_local_soft_cap": [
+          0.025,
+          0.05
+        ],
+        "free_gas_zone_thickness_m": [
+          35.0,
+          105.0
+        ]
+      },
+      "discontinuous_bsr": {
+        "hydrate_zone_mean": [
+          0.004,
+          0.013
+        ],
+        "hydrate_local_soft_cap": [
+          0.15,
+          0.21
+        ],
+        "gas_zone_mean": [
+          0.0012,
+          0.004
+        ],
+        "gas_local_soft_cap": [
+          0.025,
+          0.05
+        ],
+        "free_gas_zone_thickness_m": [
+          35.0,
+          115.0
+        ]
+      },
+      "fault_gas_chimney": {
+        "hydrate_zone_mean": [
+          0.018,
+          0.04
+        ],
+        "hydrate_local_soft_cap": [
+          0.13,
+          0.2
+        ],
+        "gas_zone_mean": [
+          0.006,
+          0.016
+        ],
+        "gas_local_soft_cap": [
+          0.045,
+          0.065
+        ],
+        "free_gas_zone_thickness_m": [
+          65.0,
+          150.0
+        ]
+      },
+      "anticline_structural_trap": {
+        "hydrate_zone_mean": [
+          0.015,
+          0.038
+        ],
+        "hydrate_local_soft_cap": [
+          0.14,
+          0.21
+        ],
+        "gas_zone_mean": [
+          0.006,
+          0.016
+        ],
+        "gas_local_soft_cap": [
+          0.04,
+          0.065
+        ],
+        "free_gas_zone_thickness_m": [
+          55.0,
+          135.0
+        ]
+      }
+    }
+  },
+  "lateral_continuity": {
+    "coordinate_unit": "metres; converted to source-grid cells only inside the generator",
+    "seafloor_gaussian_sigma_m": [
+      450.0,
+      900.0
+    ],
+    "seafloor_wavelength_m": [
+      2500.0,
+      6000.0
+    ],
+    "seafloor_p95_slope": [
+      0.035,
+      0.08
+    ],
+    "bsr_gaussian_sigma_m": [
+      300.0,
+      700.0
+    ],
+    "stratigraphy_lateral_sigma_m": [
+      300.0,
+      800.0
+    ],
+    "facies_lateral_sigma_m": [
+      250.0,
+      650.0
+    ],
+    "stratigraphy_lateral_amplitude": [
+      0.08,
+      0.16
+    ],
+    "facies_amplitude": [
+      0.1,
+      0.18
+    ],
+    "lithology_lens_halfwidth_m": [
+      350.0,
+      900.0
+    ],
+    "release_window_m": [
+      1310.0,
+      4835.0
+    ],
+    "styles": {
+      "diffuse_continuous_bsr": {
+        "hydrate_texture_sigma_m": [
+          300.0,
+          550.0
+        ],
+        "gas_texture_sigma_m": [
+          260.0,
+          500.0
+        ],
+        "hydrate_texture_strength": [
+          0.08,
+          0.2
+        ],
+        "gas_texture_strength": [
+          0.1,
+          0.24
+        ]
+      },
+      "localized_enriched_lenses": {
+        "hydrate_texture_sigma_m": [
+          150.0,
+          280.0
+        ],
+        "gas_texture_sigma_m": [
+          240.0,
+          460.0
+        ],
+        "hydrate_texture_strength": [
+          0.12,
+          0.28
+        ],
+        "gas_texture_strength": [
+          0.1,
+          0.26
+        ],
+        "lens_count": [
+          2,
+          4
+        ],
+        "lens_halfwidth_m": [
+          150.0,
+          280.0
+        ],
+        "lens_vertical_sigma_m": [
+          22.0,
+          48.0
+        ],
+        "lens_bsr_offset_m": [
+          55.0,
+          220.0
+        ],
+        "hydrate_background_gate": 0.012,
+        "interpretation": "Two to four depositional-coordinate lenses whose hydrate support and porosity are conditioned by the stochastic lithology field.",
+        "facies_quantile": 0.55,
+        "facies_logistic_slope": 3.6,
+        "facies_reservoir_floor": 0.12,
+        "reservoir_porosity_enhancement": [
+          0.005,
+          0.014
+        ],
+        "lens_width_asymmetry_factor": [
+          0.72,
+          1.35
+        ],
+        "lens_thickness_taper_strength": [
+          0.12,
+          0.3
+        ],
+        "lens_internal_relief_fraction": [
+          0.08,
+          0.22
+        ],
+        "lightweight_enhancement": "Piecewise left/right widths, gentle depositional-coordinate relief, and thickness taper; no process-based channel simulation."
+      },
+      "discontinuous_bsr": {
+        "hydrate_texture_sigma_m": [
+          150.0,
+          280.0
+        ],
+        "gas_texture_sigma_m": [
+          150.0,
+          280.0
+        ],
+        "hydrate_texture_strength": [
+          0.24,
+          0.46
+        ],
+        "gas_texture_strength": [
+          0.2,
+          0.4
+        ],
+        "segment_count": [
+          2,
+          3
+        ],
+        "segment_halfwidth_m": [
+          170.0,
+          260.0
+        ],
+        "gate_edge_sigma_m": [
+          35.0,
+          70.0
+        ],
+        "hydrate_fairway_bsr_offset_m": [
+          40.0,
+          90.0
+        ],
+        "hydrate_fairway_sigma_m": [
+          20.0,
+          42.0
+        ],
+        "hydrate_background_gate": 0.002,
+        "gas_background_gate": 0.001,
+        "interpretation": "Patchiness is a family, not a unique Sh-Sg mapping: gas-only, hydrate-only, and coincident fairway mechanisms cycle deterministically.",
+        "mechanisms": [
+          "gas_patchy",
+          "hydrate_patchy",
+          "coincident_fairways"
+        ]
+      },
+      "fault_gas_chimney": {
+        "hydrate_texture_sigma_m": [
+          140.0,
+          260.0
+        ],
+        "gas_texture_sigma_m": [
+          120.0,
+          230.0
+        ],
+        "hydrate_texture_strength": [
+          0.12,
+          0.28
+        ],
+        "gas_texture_strength": [
+          0.14,
+          0.32
+        ],
+        "chimney_halfwidth_m": [
+          120.0,
+          220.0
+        ],
+        "interpretation": "A finite-width, gently wandering migration pathway with three literature-supported hydrate/gas end members rather than a universal depleted core.",
+        "mechanisms": [
+          "thermal_peripheral_hydrate",
+          "fracture_fill_hydrate",
+          "leaky_mixed_chimney"
+        ],
+        "centerline_bend_fraction": 0.18,
+        "centerline_bend_period_m": [
+          650.0,
+          1100.0
+        ],
+        "transient_gas_tail_height_m": [
+          35.0,
+          90.0
+        ]
+      },
+      "anticline_structural_trap": {
+        "hydrate_texture_sigma_m": [
+          220.0,
+          420.0
+        ],
+        "gas_texture_sigma_m": [
+          200.0,
+          380.0
+        ],
+        "hydrate_texture_strength": [
+          0.1,
+          0.24
+        ],
+        "gas_texture_strength": [
+          0.12,
+          0.28
+        ],
+        "anticline_center_fraction": [
+          0.38,
+          0.62
+        ],
+        "anticline_halfwidth_m": [
+          650.0,
+          1050.0
+        ],
+        "anticline_relief_m": [
+          60.0,
+          125.0
+        ],
+        "crest_saturation_halfwidth_m": [
+          430.0,
+          780.0
+        ],
+        "hydrate_reservoir_bsr_offset_m": [
+          35.0,
+          85.0
+        ],
+        "hydrate_reservoir_sigma_m": [
+          24.0,
+          52.0
+        ],
+        "hydrate_background_gate": 0.018,
+        "interpretation": "Broad fold with hydrate in a folded depositional reservoir layer and free gas focused below the BSR near structural closure.",
+        "facies_quantile": 0.45,
+        "facies_logistic_slope": 1.8,
+        "anticline_wing_width_factor": [
+          0.78,
+          1.28
+        ],
+        "reservoir_completeness_sigma_m": [
+          420.0,
+          780.0
+        ],
+        "reservoir_completeness_strength": [
+          0.12,
+          0.28
+        ],
+        "lightweight_enhancement": "Mildly asymmetric fold wings and smooth partial reservoir development; closure and crest-focused gas remain intact."
+      }
+    }
+  },
+  "continuity_acceptance": {
+    "seafloor_p95_absolute_slope_max": 0.085,
+    "continuous_style_Sh_lag150m_correlation_min": 0.3,
+    "continuous_style_Sg_lag150m_correlation_min": 0.25,
+    "continuous_style_Sh_decorrelation_distance_m_min": 150.0,
+    "continuous_style_Sg_decorrelation_distance_m_min": 150.0,
+    "note": "Continuous and anticline configurations retain long lateral scales; lenses, fairways, and chimney use configuration-specific topology gates."
+  },
+  "saturation_acceptance": {
+    "hydrate_positive_near_max_fraction_max": 0.08,
+    "gas_positive_near_max_fraction_max": 0.08,
+    "hydrate_global_max": 0.22,
+    "gas_global_max": 0.065,
+    "gas_zone_mean_range": [
+      0.001,
+      0.035
+    ],
+    "gas_zone_thickness_range_m": [
+      30.0,
+      150.0
+    ],
+    "gas_bearing_vp_p01_range_m_s": [
+      1200.0,
+      1750.0
+    ],
+    "note": "ranges are regional-prior gates, not strict Site 997 well calibration",
+    "gas_velocity_gate_rationale": "A broad local-p01 plausibility screen for unconsolidated free-gas sediment. Values are generated by the released GW-GH equations; the gate rejects numerical extremes rather than imposing a measured Blake Ridge cutoff."
+  },
+  "rtm_quality_acceptance": {
+    "smooth_horizontal_to_vertical_gradient_energy_max": 0.0045,
+    "smooth_near_vertical_fk_energy_fraction_max": 0.001,
+    "smooth_adjacent_trace_correlation_median_min": 0.96,
+    "smooth_normalized_lateral_roughness_max": 0.12,
+    "smooth_true_conditioned_correlation_min": 0.4,
+    "note": "Gross-artifact rejection limits. Horizontal-gradient, adjacent-trace, and roughness metrics are retained as broad safeguards rather than flat-strata quality scores; coherent folds must not be rejected for true dip.",
+    "smooth_structure_aware_adjacent_trace_correlation_median_min": 0.97,
+    "smooth_structure_aware_normalized_lateral_roughness_max": 0.08
+  },
+  "image_model": {
+    "vertical_wavenumber_cycles_per_km": [
+      90.0,
+      122.0
+    ],
+    "horizontal_psf_sigma_traces": [
+      0.35,
+      0.85
+    ],
+    "snr_db": [
+      16.0,
+      28.0
+    ],
+    "sediment_amplitude_decay_length_m": [
+      650.0,
+      1000.0
+    ],
+    "illumination_variability": [
+      0.25,
+      0.52
+    ]
+  },
+  "scenario_styles": [
+    "diffuse_continuous_bsr",
+    "localized_enriched_lenses",
+    "discontinuous_bsr",
+    "fault_gas_chimney",
+    "anticline_structural_trap"
+  ],
+  "rock_physics": {
+    "primary_family": "soft-frame pore-filling hydrate plus Wood brine-gas mixture and Gassmann substitution",
+    "hydrate_response_scale": [
+      0.82,
+      1.12
+    ],
+    "status": "regional prior with explicit hydrate-response and GW-GH gas-patchiness nuisance parameters; not a direct Site 997 calibration",
+    "future_cross_model_families": [
+      "weak hydrate cementation",
+      "patchy gas saturation",
+      "alternative critical-porosity frame"
+    ],
+    "gas_patchiness": [
+      0.9,
+      1.0
+    ],
+    "gas_mixing_family": "P-wave-modulus interpolation from Gassmann-Wood (0) to Gassmann-Hill (1), sampling the patchy end-member interval."
+  },
+  "forward_sampling_candidate": {
+    "source_peak_frequency_hz": 14.0,
+    "effective_max_frequency_factor": 2.5,
+    "effective_max_frequency_hz": 35.0,
+    "minimum_points_per_effective_wavelength": 6.0,
+    "status": "frozen geological sampling and full-wave quality criteria"
+  },
+  "provenance": {
+    "field_geometry": "EW0008 3-D PSDM, MGDS DOI 10.1594/IEDA/500090",
+    "field_continuity_audit": "central EW0008 crosslines 550-850 constrain a robust seafloor p95 slope near 0.08; seismic amplitude coherence is not equated to saturation correlation",
+    "odp_saturation_anchor": "ODP Leg 164 Sites 994/995/997 regional hydrate means about 3.3-5.8 percent pore volume; method-dependent estimates and localized anomalies extend higher",
+    "odp_vertical_anchor": "hydrate occurrence approximately 185-260 and 380-450 mbsf superimposed on diffuse low saturation",
+    "odp_free_gas_anchor": "log-inferred free-gas saturations about 0.60-4.83 percent with identified intervals about 30-125 m thick",
+    "coexistence_anchor": "published interpretations allow hydrate below the BSR with free gas; BSR is not imposed as an exact universal hydrate termination",
+    "well_proximity_result": "none of Sites 994/995/997 is a strict through-well trace in EW0008; nearest Site 997 trace is approximately 3.34 km",
+    "important_limitation": "All intervals are regional stochastic priors. The model is not a trace-by-trace inversion of EW0008 and cannot support strict through-well validation.",
+    "release_status": "frozen configuration for the NGH-Seis v1.0 benchmark",
+    "architecture_basis": {
+      "diffuse_and_free_gas": "ODP Leg 164 regional constraints",
+      "channel_lens": "Marine and Petroleum Geology 117 (2020) 104354; doi:10.1016/j.marpetgeo.2020.104354",
+      "anticline": "Marine and Petroleum Geology 108 (2019) 249-271 and JGR Solid Earth doi:10.1029/2021JB022793",
+      "discontinuous_bsr": "Earth and Planetary Science Letters 459 (2017) 157-169; doi:10.1016/j.epsl.2016.10.058",
+      "fluid_chimney": "JGR Solid Earth doi:10.1002/2015JB012344 and doi:10.1029/2009JB007078",
+      "gas_patchiness_rock_physics": "Gassmann-Wood and Gassmann-Hill limiting mixtures; the sampled interpolation coefficient is released per realization"
+    }
+  },
+  "architecture_level": 3,
+  "style_display_names": {
+    "diffuse_continuous_bsr": "diffuse continuous hydrate-gas system",
+    "localized_enriched_lenses": "facies-conditioned stratigraphic lenses",
+    "discontinuous_bsr": "patchy hydrate-gas fairways",
+    "fault_gas_chimney": "fault-focused fluid-migration chimney",
+    "anticline_structural_trap": "folded stratigraphic anticline trap"
+  },
+  "morphology_acceptance": {
+    "diffuse_continuous_bsr": {
+      "Sh_active_column_fraction_min": 0.9,
+      "Sh_lateral_inventory_cv_max": 0.3
+    },
+    "localized_enriched_lenses": {
+      "Sh_high_value_component_count": [
+        2,
+        6
+      ],
+      "Sh_lateral_inventory_cv_min": 0.3,
+      "reservoir_lithology_correlation_min": 0.15
+    },
+    "discontinuous_bsr": {
+      "gas_patchy": {
+        "Sh_active_min": 0.85,
+        "Sg_active": [
+          0.18,
+          0.78
+        ]
+      },
+      "hydrate_patchy": {
+        "Sh_active": [
+          0.18,
+          0.78
+        ],
+        "Sg_active_min": 0.82
+      },
+      "coincident_fairways": {
+        "Sh_active": [
+          0.18,
+          0.78
+        ],
+        "Sg_active": [
+          0.18,
+          0.78
+        ],
+        "Sh_Sg_profile_corr_min": 0.75
+      }
+    },
+    "fault_gas_chimney": {
+      "all_modes_gas_focus_ratio_min": 1.5,
+      "thermal_core_to_flank_Sh_max": 0.8,
+      "fracture_core_to_background_Sh_min": 1.25,
+      "leaky_tail_Sg_max": 0.004
+    },
+    "anticline_structural_trap": {
+      "fold_relief_m": [
+        60.0,
+        125.0
+      ],
+      "Sg_crest_window_to_background_ratio_min": 1.8,
+      "folded_reservoir_required": true
+    },
+    "note": "The gates verify the intended geological mechanism without forcing every member of a scenario family to share the same Sh-Sg topology."
+  },
+  "public_release_name": "NGH-Seis v1.0"
+}

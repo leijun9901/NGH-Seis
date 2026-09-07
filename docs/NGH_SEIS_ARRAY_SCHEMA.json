@@ -1,0 +1,759 @@
+{
+  "schema_version": "1.0",
+  "dataset_name": "NGH-Seis",
+  "dataset_version": "1.0",
+  "accepted_samples_scanned": 1000,
+  "observation_archives_scanned": true,
+  "array_order": "vertical/time first; lateral/receiver second",
+  "saturation_definition": "fraction of total pore volume",
+  "important": [
+    "Observed extrema describe the frozen synthetic release; they are not recommended normalization constants.",
+    "Use training-split calibration JSON files for quantitative normalization.",
+    "loss_mask and valid_mask are metadata/masks, not network input channels.",
+    "input_rtm_display_only is display-only; use input_rtm_conditioned_unscaled for quantitative benchmarks."
+  ],
+  "fields": [
+    {
+      "file_role": "geology",
+      "field": "AI_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 4773510.0,
+      "unit": "kg/(m^2 s)",
+      "benchmark_role": "Task 1 AI target",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "Sg_full",
+      "shapes": [
+        [
+          1001,
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 0.0646510124206543,
+      "unit": "fraction of total pore volume",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "Sg_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 0.06461939215660095,
+      "unit": "fraction of total pore volume",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "Sh_full",
+      "shapes": [
+        [
+          1001,
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 0.20942166447639465,
+      "unit": "fraction of total pore volume",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "Sh_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 0.20936930179595947,
+      "unit": "fraction of total pore volume",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "Vp_full",
+      "shapes": [
+        [
+          1001,
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 1148.57470703125,
+      "observed_global_max": 2458.20556640625,
+      "unit": "m/s",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "Vp_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 2347.400390625,
+      "unit": "m/s",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "bsr_m",
+      "shapes": [
+        [
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 3034.610595703125,
+      "observed_global_max": 3623.50048828125,
+      "unit": "m below sea surface",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "lithology_proxy_full",
+      "shapes": [
+        [
+          1001,
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -9.169342994689941,
+      "observed_global_max": 9.547078132629395,
+      "unit": null,
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "lithology_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -9.04322338104248,
+      "observed_global_max": 7.770980358123779,
+      "unit": null,
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "loss_mask",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "uint8"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 1.0,
+      "unit": "0/1",
+      "benchmark_role": "loss/evaluation mask; never a network input",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "metadata_json",
+      "shapes": [
+        []
+      ],
+      "dtypes": [
+        "unicode"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": null,
+      "observed_global_max": null,
+      "unit": null,
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "phi_full",
+      "shapes": [
+        [
+          1001,
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.3799999952316284,
+      "observed_global_max": 1.0,
+      "unit": "dimensionless fraction",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "phi_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 1.0,
+      "unit": "dimensionless fraction",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "rho_full",
+      "shapes": [
+        [
+          1001,
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 1025.0,
+      "observed_global_max": 2065.39990234375,
+      "unit": "kg/m^3",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "rho_view",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 2033.470458984375,
+      "unit": "kg/m^3",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "seafloor_m",
+      "shapes": [
+        [
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 2608.92236328125,
+      "observed_global_max": 3080.39794921875,
+      "unit": "m below sea surface",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "valid_mask",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "uint8"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 1.0,
+      "unit": "0/1",
+      "benchmark_role": "support metadata; never a network input",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "x_m",
+      "shapes": [
+        [
+          1229
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 6140.0,
+      "unit": null,
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "geology",
+      "field": "z_m",
+      "shapes": [
+        [
+          1001
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 5000.0,
+      "unit": null,
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "observations",
+      "field": "peak_cuda_memory_gb",
+      "shapes": [
+        []
+      ],
+      "dtypes": [
+        "float64"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.07369518280029297,
+      "observed_global_max": 0.07369518280029297,
+      "unit": "GiB",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "observations",
+      "field": "processed_gathers",
+      "shapes": [
+        [
+          25,
+          1501,
+          128
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -7543.13623046875,
+      "observed_global_max": 9075.7666015625,
+      "unit": "relative amplitude",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "observations",
+      "field": "raw_gathers",
+      "shapes": [
+        [
+          25,
+          1501,
+          128
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -130276.359375,
+      "observed_global_max": 183126.234375,
+      "unit": "solver pressure amplitude",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "observations",
+      "field": "runtime_s",
+      "shapes": [
+        []
+      ],
+      "dtypes": [
+        "float64"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 13.912663100054488,
+      "observed_global_max": 18.340825799969025,
+      "unit": "s",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "auxiliary_Vp",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 2347.400390625,
+      "unit": "m/s",
+      "benchmark_role": "Task 1 Vp target / auxiliary truth",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "diagnostic_display_scale",
+      "shapes": [
+        []
+      ],
+      "dtypes": [
+        "float64"
+      ],
+      "present_in_samples": 49,
+      "observed_global_min": 10776.3642578125,
+      "observed_global_max": 14196.279296875,
+      "unit": "adjoint-gradient amplitude",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "diagnostic_true_model_rtm_conditioned_unscaled",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 49,
+      "observed_global_min": -15126.1826171875,
+      "observed_global_max": 18871.240234375,
+      "unit": "dJ/dVp-type adjoint-gradient amplitude",
+      "benchmark_role": "technical validation only",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "diagnostic_true_model_rtm_display",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 49,
+      "observed_global_min": -1.0,
+      "observed_global_max": 1.0,
+      "unit": "dimensionless display scale",
+      "benchmark_role": "display-only technical validation",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "input_display_scale",
+      "shapes": [
+        []
+      ],
+      "dtypes": [
+        "float64"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 17646.3203125,
+      "observed_global_max": 32013.90234375,
+      "unit": "adjoint-gradient amplitude",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "input_rtm_conditioned_unscaled",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -30574.55078125,
+      "observed_global_max": 44501.3046875,
+      "unit": "dJ/dVp-type adjoint-gradient amplitude",
+      "benchmark_role": "primary input for Tasks 1 and 2",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "input_rtm_display_only",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -1.0,
+      "observed_global_max": 1.0,
+      "unit": "dimensionless display scale",
+      "benchmark_role": "display only; not quantitative input",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "loss_mask",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "uint8"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 1.0,
+      "unit": "0/1",
+      "benchmark_role": "loss/evaluation mask; never a network input",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "migration_Vp",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 2350.0,
+      "unit": "m/s",
+      "benchmark_role": "Task 1 second input and physical baseline",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "processed_representative_gather",
+      "shapes": [
+        [
+          1501,
+          128
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -7155.5185546875,
+      "observed_global_max": 8709.1787109375,
+      "unit": "relative amplitude",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "raw_representative_gather",
+      "shapes": [
+        [
+          1501,
+          128
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": -130274.96875,
+      "observed_global_max": 183124.625,
+      "unit": "solver pressure amplitude",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "receiver_x_m",
+      "shapes": [
+        [
+          25,
+          128
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 195.0,
+      "observed_global_max": 5700.0,
+      "unit": "m",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "shot_x_m",
+      "shapes": [
+        [
+          25
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 2200.0,
+      "observed_global_max": 5800.0,
+      "unit": "m",
+      "benchmark_role": "released physical/diagnostic field; see DATA_DICTIONARY.md",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "target_Sg",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 0.06461939215660095,
+      "unit": "fraction of total pore volume",
+      "benchmark_role": "Task 2 target",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "target_Sh",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "float32"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 0.20936930179595947,
+      "unit": "fraction of total pore volume",
+      "benchmark_role": "Task 2 target",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    },
+    {
+      "file_role": "training_pair",
+      "field": "valid_mask",
+      "shapes": [
+        [
+          512,
+          96
+        ]
+      ],
+      "dtypes": [
+        "uint8"
+      ],
+      "present_in_samples": 1000,
+      "observed_global_min": 0.0,
+      "observed_global_max": 1.0,
+      "unit": "0/1",
+      "benchmark_role": "support metadata; never a network input",
+      "range_definition": "observed minimum and maximum across all 1,000 accepted archives"
+    }
+  ]
+}
