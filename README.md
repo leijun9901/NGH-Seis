@@ -1,5 +1,7 @@
 # NGH-Seis
 
+[![Smoke test](https://github.com/leijun9901/NGH-Seis/actions/workflows/smoke-test.yml/badge.svg)](https://github.com/leijun9901/NGH-Seis/actions/workflows/smoke-test.yml)
+
 NGH-Seis is a physics-based 2-D synthetic marine seismic dataset for acoustic-property reconstruction and hydrate/free-gas saturation estimation. The release contains 1,000 realizations from five geological families, with fixed IID and leave-one-family-out OOD splits.
 
 The dataset is distributed separately through Zenodo (DOI pending). Extract it as `outputs/NGH-Seis_v1.0/`.
@@ -16,10 +18,11 @@ conda activate ngh-seis
 Task 1 predicts P-wave velocity and acoustic impedance; Task 2 predicts hydrate and free-gas saturation. Available baselines are U-Net, ResUNet, and DeepLabV3+.
 
 ```bash
+python scripts/smoke_test.py --synthetic --model all
 python scripts/smoke_test.py outputs/NGH-Seis_v1.0
 ```
 
-The command reads a released sample and performs one forward/backward update for both tasks. A successful run prints `"status": "PASS"`.
+The first command checks all models without downloading data. The second reads a released sample. Both perform a forward/backward update for Tasks 1 and 2 and print `"status": "PASS"` on success.
 
 Full training uses:
 
