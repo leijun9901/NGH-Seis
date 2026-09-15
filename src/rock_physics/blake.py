@@ -1,4 +1,4 @@
-"""Literature-bounded acoustic prior for the NGH-Seis geological models.
+"""Literature-bounded acoustic prior for Blake Ridge models.
 
 This module deliberately avoids the term "well calibrated": the downloaded
 EW0008 volume is aligned to ODP Leg 164 regional knowledge, but no well tie is
@@ -42,7 +42,7 @@ def blake_prior_acoustic_properties(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Convert porosity and pore saturation to Vp and bulk density.
 
-    ``gas_patchiness=None`` uses the default empirical anomaly scaling.
+    ``gas_patchiness=None`` preserves the v1 empirical anomaly scaling.
     Otherwise, the gas response is interpolated in P-wave modulus between the
     Gassmann-Wood (uniform pore-fluid pressure) and Gassmann-Hill (separate
     brine- and gas-saturated patches) end members.  The latter is an explicit

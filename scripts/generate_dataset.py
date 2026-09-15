@@ -1,4 +1,4 @@
-"""Resumable NGH-Seis v1.0 generator with RTM quality admission.
+"""Resumable  Blake Ridge production runner with RTM quality admission.
 
 This script deliberately runs one GPU worker: Deepwave RTM is GPU-bound and
 parallel workers would contend for the same device.  Candidate IDs are never
@@ -18,9 +18,9 @@ import numpy as np
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT))
 
-from scripts.generate_ngh_seis_geology import _extract  # noqa: E402
-from scripts.release_quality_checks import _sample_audit  # noqa: E402
-from scripts.run_ngh_seis_forward_rtm import run_sample  # noqa: E402
+from scripts.geology_views import _extract  # noqa: E402
+from scripts.geology_quality import _sample_audit  # noqa: E402
+from scripts.run_marine_rtm import run_sample  # noqa: E402
 from src.geology.blake_ew0008 import generate_blake_ew0008  # noqa: E402
 
 
@@ -79,7 +79,7 @@ def _materialize_geology(candidate_id: int, config_path: Path, geology_dir: Path
     }
     metadata.update(
         {
-            "role": "geology and rock-physics model; no seismic proxy released as network input",
+            "role": "geology and rock-physics realization; no seismic proxy released as network input",
             "field_aligned_view": view_metadata,
             "well_validation_status": "regional ODP prior only; no strict EW0008 through-well trace",
             "sample_audit": _sample_audit(
@@ -135,9 +135,9 @@ def main() -> None:
     parser.add_argument("--config", type=Path, default=CONFIG)
     parser.add_argument(
         "--geology-folder", type=Path, default=None,
-        help="Optional existing deterministic geology folder; avoids regenerating geology arrays.",
+        help="Optional existing deterministic geology folder; avoids regenerating labels.",
     )
-    parser.add_argument("--output", type=Path, default=PROJECT / "outputs/NGH-Seis-v1.0-generation")
+    parser.add_argument("--output", type=Path, default=PROJECT / "outputs/generated_dataset")
     args = parser.parse_args()
     if args.accepted_target < 1 or args.max_candidates < 1:
         raise ValueError("accepted-target and max-candidates must both be positive")

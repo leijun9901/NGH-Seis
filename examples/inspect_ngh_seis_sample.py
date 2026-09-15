@@ -1,7 +1,7 @@
 """Load and visualize one NGH-Seis v1.0 sample.
 
 Example:
-    python examples/inspect_ngh_seis_sample.py /path/to/NGH-Seis-v1.0 --candidate-id 1
+    python examples/inspect_ngh_seis_sample.py --candidate-id 1
 """
 
 from __future__ import annotations
@@ -14,8 +14,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def load_record(candidate_id: int, dataset_root: Path) -> dict:
-    manifest_path = dataset_root / "metadata" / "accepted_manifest.json"
+PROJECT = Path(__file__).resolve().parents[1]
+
+
+def load_record(candidate_id: int, release_root: Path) -> dict:
+    manifest_path = release_root / "accepted_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     matches = [row for row in manifest if int(row["candidate_id"]) == candidate_id]
     if len(matches) != 1:
@@ -23,16 +26,34 @@ def load_record(candidate_id: int, dataset_root: Path) -> dict:
     return matches[0]
 
 
+def resolve_roots(production_root: Path, release_root: Path) -> tuple[Path, Path]:
+    """Accept both the development tree and final public repository layout."""
+    if (release_root / "accepted_manifest.json").is_file():
+        return production_root, release_root
+    if (production_root / "metadata" / "accepted_manifest.json").is_file():
+        return production_root, production_root / "metadata"
+    raise FileNotFoundError("accepted_manifest.json was not found in the supplied release layout")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("dataset_root", type=Path)
     parser.add_argument("--candidate-id", type=int, default=1)
+    parser.add_argument(
+        "--production-root",
+        type=Path,
+        default=PROJECT / "outputs" / "NGH-Seis_v1.0",
+    )
+    parser.add_argument(
+        "--release-root",
+        type=Path,
+        default=PROJECT / "outputs" / "NGH-Seis_v1.0" / "metadata",
+    )
     parser.add_argument("--save", type=Path, default=None)
     args = parser.parse_args()
-    dataset_root = args.dataset_root.resolve()
-    record = load_record(args.candidate_id, dataset_root)
-    pair_path = dataset_root / record["files"]["pair"]["path"]
-    observations_path = dataset_root / record["files"]["observations"]["path"]
+    production_root, release_root = resolve_roots(args.production_root, args.release_root)
+    record = load_record(args.candidate_id, release_root)
+    pair_path = production_root / record["pair"]
+    observations_path = production_root / record["observations"]
 
     with np.load(pair_path, allow_pickle=False) as pair:
         rtm = pair["input_rtm_display_only"].copy()
@@ -76,7 +97,7 @@ def main() -> None:
         if unit is not None:
             fig.colorbar(image, ax=ax, shrink=0.75, label=unit)
     fig.suptitle(
-        f"NGH-Seis candidate {args.candidate_id:04d} | {record['style']}",
+        f"NGH-Seis sample {args.candidate_id:04d} | {record['style']}",
         fontsize=14,
     )
     if args.save is None:

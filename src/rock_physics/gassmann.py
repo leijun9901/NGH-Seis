@@ -1,4 +1,4 @@
-"""NGH-Seis hydrate/free-gas rock-physics mapping.
+"""Hydrate/free-gas rock-physics mapping.
 
 This is a transparent controlled model for pipeline validation.  Its constants
 must be calibrated and justified before producing the released benchmark.

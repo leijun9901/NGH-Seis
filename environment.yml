@@ -10,6 +10,7 @@ dependencies:
   - matplotlib=3.10.7
   - numba=0.62.1
   - pytorch=2.5.1
+  - torchvision=0.20.1
   - pytorch-cuda=12.4
   - pip
   - pip:

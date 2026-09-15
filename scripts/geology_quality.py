@@ -1,9 +1,20 @@
-"""Quality metrics used by the NGH-Seis v1.0 generation workflow."""
-
 from __future__ import annotations
+
+import argparse
+
+import hashlib
+
+import json
+
+from pathlib import Path
 
 import numpy as np
 
+PROJECT = Path(__file__).resolve().parents[1]
+
+DEFAULT_FOLDER = PROJECT / "outputs/ngh_seis_v1_geology_source/geology"
+
+DEFAULT_CONFIG = PROJECT / "configs/ngh_seis_geology.json"
 
 VIEW_ARRAY_KEYS = (
     "Vp_view",
@@ -15,7 +26,6 @@ VIEW_ARRAY_KEYS = (
     "lithology_view",
 )
 
-
 def _rowwise_lateral_correlation(field: np.ndarray, rows: slice, lag: int) -> float:
     array = np.asarray(field[rows, :95], dtype=np.float64)
     array -= array.mean(axis=1, keepdims=True)
@@ -23,7 +33,6 @@ def _rowwise_lateral_correlation(field: np.ndarray, rows: slice, lag: int) -> fl
     if denominator <= 1.0e-20 or lag >= array.shape[1]:
         return 0.0
     return float(np.sum(array[:, :-lag] * array[:, lag:]) / denominator)
-
 
 def _decorrelation_distance_m(
     field: np.ndarray,
@@ -36,7 +45,6 @@ def _decorrelation_distance_m(
         if _rowwise_lateral_correlation(field, rows, lag) <= threshold:
             return lag * dx_m
     return 24 * dx_m
-
 
 def _sample_audit(
     sample_index: int,
@@ -52,15 +60,13 @@ def _sample_audit(
         raise ValueError(f"sample {sample_index} has no gas-bearing cells")
     gas_bearing_vp_p01 = float(np.quantile(arrays["Vp_full"][gas_bearing], 0.01))
     effective_max_hz = float(
-        config["forward_sampling_candidate"]["effective_max_frequency_hz"]
+        config["forward_sampling"]["effective_max_frequency_hz"]
     )
     points_per_wavelength = minimum_sediment_vp / (
         effective_max_hz * float(config["grid"]["dx_m"])
     )
     finite = bool(all(np.all(np.isfinite(arrays[key])) for key in VIEW_ARRAY_KEYS))
-    padding_zero = bool(
-        all(np.all(arrays[key][:, 95] == 0.0) for key in VIEW_ARRAY_KEYS)
-    )
+    padding_zero = bool(all(np.all(arrays[key][:, 95] == 0.0) for key in VIEW_ARRAY_KEYS))
     return {
         "sample_index": sample_index,
         "style": metadata["style"],

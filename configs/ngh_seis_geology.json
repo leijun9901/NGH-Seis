@@ -1,6 +1,6 @@
 {
   "version": "NGH-Seis v1.0",
-  "scope": "Frozen geological and petrophysical configuration for the NGH-Seis v1.0 benchmark.",
+  "scope": "Frozen NGH-Seis v1.0 generator configuration with asymmetric facies-controlled lenses and mildly asymmetric folded reservoirs. Physics and acquisition scope are fixed.",
   "grid": {
     "nx_physical": 1229,
     "nx_network": 96,
@@ -571,7 +571,7 @@
       0.52
     ]
   },
-  "scenario_styles": [
+  "geological_styles": [
     "diffuse_continuous_bsr",
     "localized_enriched_lenses",
     "discontinuous_bsr",
@@ -594,14 +594,7 @@
       0.9,
       1.0
     ],
-    "gas_mixing_family": "P-wave-modulus interpolation from Gassmann-Wood (0) to Gassmann-Hill (1), sampling the patchy end-member interval."
-  },
-  "forward_sampling_candidate": {
-    "source_peak_frequency_hz": 14.0,
-    "effective_max_frequency_factor": 2.5,
-    "effective_max_frequency_hz": 35.0,
-    "minimum_points_per_effective_wavelength": 6.0,
-    "status": "frozen geological sampling and full-wave quality criteria"
+    "gas_mixing_family": "P-wave-modulus interpolation from Gassmann-Wood (0) to Gassmann-Hill (1); the frozen release samples the patchy end-member interval."
   },
   "provenance": {
     "field_geometry": "EW0008 3-D PSDM, MGDS DOI 10.1594/IEDA/500090",
@@ -612,23 +605,15 @@
     "coexistence_anchor": "published interpretations allow hydrate below the BSR with free gas; BSR is not imposed as an exact universal hydrate termination",
     "well_proximity_result": "none of Sites 994/995/997 is a strict through-well trace in EW0008; nearest Site 997 trace is approximately 3.34 km",
     "important_limitation": "All intervals are regional stochastic priors. The model is not a trace-by-trace inversion of EW0008 and cannot support strict through-well validation.",
-    "release_status": "frozen configuration for the NGH-Seis v1.0 benchmark",
+    "release_status": "Frozen NGH-Seis v1.0 generator configuration used for the public release.",
     "architecture_basis": {
-      "diffuse_and_free_gas": "ODP Leg 164 regional constraints",
+      "diffuse_and_free_gas": "ODP Leg 164 regional constraints used by the frozen release",
       "channel_lens": "Marine and Petroleum Geology 117 (2020) 104354; doi:10.1016/j.marpetgeo.2020.104354",
       "anticline": "Marine and Petroleum Geology 108 (2019) 249-271 and JGR Solid Earth doi:10.1029/2021JB022793",
       "discontinuous_bsr": "Earth and Planetary Science Letters 459 (2017) 157-169; doi:10.1016/j.epsl.2016.10.058",
       "fluid_chimney": "JGR Solid Earth doi:10.1002/2015JB012344 and doi:10.1029/2009JB007078",
       "gas_patchiness_rock_physics": "Gassmann-Wood and Gassmann-Hill limiting mixtures; the sampled interpolation coefficient is released per realization"
     }
-  },
-  "architecture_level": 3,
-  "style_display_names": {
-    "diffuse_continuous_bsr": "diffuse continuous hydrate-gas system",
-    "localized_enriched_lenses": "facies-conditioned stratigraphic lenses",
-    "discontinuous_bsr": "patchy hydrate-gas fairways",
-    "fault_gas_chimney": "fault-focused fluid-migration chimney",
-    "anticline_structural_trap": "folded stratigraphic anticline trap"
   },
   "morphology_acceptance": {
     "diffuse_continuous_bsr": {
@@ -684,7 +669,22 @@
       "Sg_crest_window_to_background_ratio_min": 1.8,
       "folded_reservoir_required": true
     },
-    "note": "The gates verify the intended geological mechanism without forcing every member of a scenario family to share the same Sh-Sg topology."
+    "note": "Variant-aware gates verify the intended mechanism without forcing every member of a public architecture to share the same Sh-Sg topology."
   },
-  "public_release_name": "NGH-Seis v1.0"
+  "style_display_names": {
+    "diffuse_continuous_bsr": "diffuse continuous hydrate-gas system",
+    "localized_enriched_lenses": "facies-conditioned stratigraphic lenses",
+    "discontinuous_bsr": "patchy hydrate-gas fairways",
+    "fault_gas_chimney": "fault-focused fluid-migration chimney",
+    "anticline_structural_trap": "folded stratigraphic anticline trap"
+  },
+  "public_release_name": "NGH-Seis v1.0",
+  "forward_sampling": {
+    "source_peak_frequency_hz": 14.0,
+    "effective_max_frequency_factor": 2.5,
+    "effective_max_frequency_hz": 35.0,
+    "minimum_points_per_effective_wavelength": 6.0,
+    "status": "geology sampling gate; full-wave quality checks are additionally required"
+  },
+  "architecture_profile": "frozen_release"
 }

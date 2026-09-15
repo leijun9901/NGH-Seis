@@ -9,7 +9,7 @@ All NumPy archives use C-order arrays. For spatial fields the first axis is vert
 ## Public directory layout
 
 ```text
-NGH-Seis-v1.0/
+NGH-Seis_v1.0/
   data/
     geology/          1,000 geology and petrophysics archives
     observations/     1,000 full 25-shot observation archives

@@ -1,4 +1,4 @@
-"""Accepted-only loader for the NGH-Seis v1.0 RTM task."""
+"""NGH-Seis v1.0 loader for Task 2 saturation estimation."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader, Dataset
 SATURATION_SCALES = np.asarray([0.22, 0.065], dtype=np.float32)
 
 
-class NGHSeisRTMDataset(Dataset):
+class NGHSeisTask2Dataset(Dataset):
     """Load RTM -> (Sh, Sg) pairs selected by the frozen release manifests.
 
     The loss mask is returned separately and is never concatenated to the
@@ -34,24 +34,10 @@ class NGHSeisRTMDataset(Dataset):
         include_migration_vp: bool = False,
     ) -> None:
         self.release_root = Path(release_root).resolve()
-        audit = json.loads(
-            (self.release_root / "dataset_audit_summary.json").read_text(encoding="utf-8")
-        )
-        recorded_production_root = Path(audit["production_root"])
-        if recorded_production_root.exists():
-            self.production_root = recorded_production_root
-        else:
-            # Release metadata and production payloads are sibling folders in
-            # the portable server layout.  The audit retains the original
-            # absolute path for provenance, but it must not prevent migration
-            # from Windows to Linux or to a different mount point.
-            portable_root = self.release_root.parent / recorded_production_root.name
-            if not portable_root.exists():
-                raise FileNotFoundError(
-                    "Production data not found at its recorded path or portable "
-                    f"sibling path: {recorded_production_root} / {portable_root}"
-                )
-            self.production_root = portable_root
+        self.project_root = self.release_root.parent.parent
+        self.production_root = self.release_root.parent
+        if not (self.production_root / "data").is_dir():
+            raise FileNotFoundError("Expected the downloaded NGH-Seis dataset root")
         records = json.loads(
             (self.release_root / "accepted_manifest.json").read_text(encoding="utf-8")
         )
@@ -119,7 +105,11 @@ class NGHSeisRTMDataset(Dataset):
         if index in self._cache:
             return self._cache[index]
         record = self.records[index]
-        path = self.production_root / record["pair"]
+        path = (
+            self.project_root / record["source_pair"]
+            if "source_pair" in record
+            else self.production_root / record["pair"]
+        )
         with np.load(path, allow_pickle=False) as payload:
             image = np.asarray(payload["input_rtm_conditioned_unscaled"], dtype=np.float32)
             sh = np.asarray(payload["target_Sh"], dtype=np.float32)
@@ -171,7 +161,7 @@ class NGHSeisRTMDataset(Dataset):
         return item
 
 
-def make_ngh_seis_loader(
+def make_ngh_seis_task2_loader(
     release_root: str | Path,
     split: str,
     *,
@@ -183,7 +173,7 @@ def make_ngh_seis_loader(
     ood_fold: str | None = None,
     include_migration_vp: bool = False,
 ) -> DataLoader:
-    dataset = NGHSeisRTMDataset(
+    dataset = NGHSeisTask2Dataset(
         release_root,
         split,
         protocol=protocol,

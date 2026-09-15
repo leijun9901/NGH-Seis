@@ -12,17 +12,13 @@ from torch.utils.data import DataLoader, Dataset
 
 
 def _production_root(release_root: Path) -> Path:
-    audit = json.loads((release_root / "dataset_audit_summary.json").read_text(encoding="utf-8"))
-    recorded = Path(audit["production_root"])
-    if recorded.exists():
-        return recorded
-    portable = release_root.parent / recorded.name
-    if portable.exists():
-        return portable
-    raise FileNotFoundError(f"Production root not found: {recorded} / {portable}")
+    root = release_root.parent
+    if not (root / "data").is_dir():
+        raise FileNotFoundError(f"Expected the downloaded dataset beside {release_root}")
+    return root
 
 
-class NGHSeisAcousticDataset(Dataset):
+class NGHSeisTask1Dataset(Dataset):
     """Load the frozen acoustic-property benchmark without mask leakage.
 
     Channel 0 is the frozen RTM amplitude normalization. Channel 1 is the
@@ -41,6 +37,7 @@ class NGHSeisAcousticDataset(Dataset):
         ood_fold: str | None = None,
     ) -> None:
         self.release_root = Path(release_root).resolve()
+        self.project_root = self.release_root.parent.parent
         self.production_root = _production_root(self.release_root)
         records = json.loads(
             (self.release_root / "accepted_manifest.json").read_text(encoding="utf-8")
@@ -124,7 +121,17 @@ class NGHSeisAcousticDataset(Dataset):
         if index in self._cache:
             return self._cache[index]
         record = self.records[index]
-        with np.load(self.production_root / record["pair"], allow_pickle=False) as pair:
+        pair_path = (
+            self.project_root / record["source_pair"]
+            if "source_pair" in record
+            else self.production_root / record["pair"]
+        )
+        geology_path = (
+            self.project_root / record["source_geology"]
+            if "source_geology" in record
+            else self.production_root / record["geology"]
+        )
+        with np.load(pair_path, allow_pickle=False) as pair:
             rtm = np.asarray(pair["input_rtm_conditioned_unscaled"], dtype=np.float32)
             vp = np.asarray(pair["auxiliary_Vp"], dtype=np.float32)
             migration_vp = np.asarray(pair["migration_Vp"], dtype=np.float32)
@@ -132,7 +139,7 @@ class NGHSeisAcousticDataset(Dataset):
             valid = np.asarray(pair["valid_mask"], dtype=np.float32)
             sh = np.asarray(pair["target_Sh"], dtype=np.float32)
             sg = np.asarray(pair["target_Sg"], dtype=np.float32)
-        with np.load(self.production_root / record["geology"], allow_pickle=False) as geology:
+        with np.load(geology_path, allow_pickle=False) as geology:
             ai = np.asarray(geology["AI_view"], dtype=np.float32)
 
         rtm_input = np.clip(rtm, -self.rtm_bound, self.rtm_bound) / self.rtm_bound
@@ -183,7 +190,7 @@ class NGHSeisAcousticDataset(Dataset):
         return item
 
 
-def make_ngh_seis_acoustic_loader(
+def make_ngh_seis_task1_loader(
     release_root: str | Path,
     split: str,
     *,
@@ -194,7 +201,7 @@ def make_ngh_seis_acoustic_loader(
     protocol: str = "iid",
     ood_fold: str | None = None,
 ) -> DataLoader:
-    dataset = NGHSeisAcousticDataset(
+    dataset = NGHSeisTask1Dataset(
         release_root,
         split,
         augment=split == "train",

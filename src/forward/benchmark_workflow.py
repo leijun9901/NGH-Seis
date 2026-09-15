@@ -1,4 +1,4 @@
-"""Field-compatible preprocessing and migration utilities for NGH-Seis v1.0.
+"""Field-compatible preprocessing and migration utilities for NGH-Seis.
 
 The functions in this module deliberately cannot access saturation, porosity,
 or the true velocity model.  This keeps the migration side of the benchmark

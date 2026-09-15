@@ -1,4 +1,4 @@
-"""Train the conventional U-Net baseline on NGH-Seis v1.0 pairs."""
+"""Train an NGH-Seis v1.0 baseline for Task 2 saturation estimation."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from torch.nn import functional as F
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT))
 
-from src.datasets.ngh_seis_rtm import SATURATION_SCALES, make_ngh_seis_loader  # noqa: E402
+from src.datasets.ngh_seis_task2 import SATURATION_SCALES, make_ngh_seis_task2_loader  # noqa: E402
 from src.models.benchmark_models import MODEL_NAMES, build_benchmark_model  # noqa: E402
 
 
@@ -107,8 +107,8 @@ def run_epoch(model, loader, device, loss_name: str, optimizer=None, *, amp: boo
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--release", type=Path, default=PROJECT / "outputs/NGH-Seis-v1.0-metadata")
-    parser.add_argument("--output", type=Path, default=PROJECT / "outputs/NGH-Seis-v1.0-standard-unet")
+    parser.add_argument("--release", type=Path, default=PROJECT / "outputs/NGH-Seis_v1.0/metadata")
+    parser.add_argument("--output", type=Path, default=PROJECT / "outputs/task2_iid_unet")
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--model", choices=MODEL_NAMES, default="unet")
     parser.add_argument(
@@ -139,9 +139,9 @@ def main() -> None:
                           num_workers=args.num_workers, cache=args.cache,
                           protocol=args.protocol, ood_fold=args.ood_fold,
                           include_migration_vp=args.include_migration_vp)
-    train_loader = make_ngh_seis_loader(args.release, "train", **loader_options)
-    val_loader = make_ngh_seis_loader(args.release, "validation", **loader_options)
-    test_loader = make_ngh_seis_loader(args.release, "test", **loader_options)
+    train_loader = make_ngh_seis_task2_loader(args.release, "train", **loader_options)
+    val_loader = make_ngh_seis_task2_loader(args.release, "validation", **loader_options)
+    test_loader = make_ngh_seis_task2_loader(args.release, "test", **loader_options)
     input_channels = 2 if args.include_migration_vp else 1
     model = build_benchmark_model(
         args.model,
@@ -173,7 +173,7 @@ def main() -> None:
         test_metrics = run_epoch(model, test_loader, device, args.loss, amp=args.amp)
         zero_metrics = run_epoch(model, test_loader, device, args.loss, amp=args.amp, zero=True)
     result = {
-        "model": args.model, "parameter_count": parameter_count,
+        "dataset": "NGH-Seis v1.0", "task": "Task 2", "model": args.model, "parameter_count": parameter_count,
         "input_channels": input_channels, "output_channels": 2, "mask_is_input": False,
         "input_variables": ["conditioned_RTM", "migration_Vp"] if args.include_migration_vp else ["conditioned_RTM"],
         "epochs": args.epochs, "best_epoch": best_epoch,

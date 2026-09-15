@@ -1,19 +1,13 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.venv/
-.test-venv/
 .idea/
 .vscode/
 .ipynb_checkpoints/
 
-data/*
-outputs/*
-checkpoints/*
-*.ckpt
+outputs/
+*.log
 *.pth
 *.pt
-*.log
-
-*.npz
-!examples/preview/*.npz
+*.ckpt
+*.partial

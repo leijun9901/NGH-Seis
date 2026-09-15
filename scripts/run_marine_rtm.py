@@ -1,32 +1,32 @@
-"""Run resumable 25-shot forward modelling and RTM for NGH-Seis v1.0.
-
-The independent smooth-velocity RTM is the candidate network input.  A
-true-model migration is saved only as a diagnostic that separates migration
-velocity error from acquisition/adjoint artifacts; it is never a benchmark
-input.  Sh/Sg are not accessed when building the smooth migration model.
-"""
-
 from __future__ import annotations
 
 import argparse
+
 import json
+
 from pathlib import Path
+
 import sys
+
 import time
 
 import deepwave
+
 import matplotlib
 
 matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
+
 import numpy as np
+
 import torch
 
-
 PROJECT = Path(__file__).resolve().parents[1]
+
 sys.path.insert(0, str(PROJECT))
 
-from scripts.run_blake_rtm_shot_density_gate import (  # noqa: E402
+from scripts.marine_observations import (  # noqa: E402
     _bsr_contrast,
     _extract_view,
     _generate_observations,
@@ -34,21 +34,22 @@ from scripts.run_blake_rtm_shot_density_gate import (  # noqa: E402
     build_blake_migration_model,
     build_geometry,
 )
+
 from src.datasets.rtm_scaling import (  # noqa: E402
     condition_rtm_unscaled,
     display_normalize_rtm,
 )
 
-
 ACQUISITION_CONFIG = PROJECT / "configs/marine_streamer.json"
-GEOLOGY_CONFIG = PROJECT / "configs/ngh_seis_geology.json"
-GEOLOGY_FOLDER = PROJECT / "outputs/NGH-Seis-v1.0-generation/geology_candidates"
-OUTPUT = PROJECT / "outputs/NGH-Seis-v1.0-generation/rtm_candidates"
 
+GEOLOGY_CONFIG = PROJECT / "configs/ngh_seis_geology.json"
+
+GEOLOGY_FOLDER = PROJECT / "outputs/generated_geology"
+
+OUTPUT = PROJECT / "outputs/generated_rtm"
 
 def _read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def _load_geology(sample_id: int, geology_folder: Path) -> dict[str, np.ndarray]:
     path = geology_folder / f"sample_{sample_id:04d}_blake_geology.npz"
@@ -57,18 +58,17 @@ def _load_geology(sample_id: int, geology_folder: Path) -> dict[str, np.ndarray]
     with np.load(path, allow_pickle=False) as data:
         return {key: data[key].copy() for key in data.files if key != "metadata_json"}
 
-
 def _select_25_shots(geometry49: dict, config: dict | None = None) -> dict:
     """Select the frozen production subset from the 49-shot reference grid."""
     if config is None:
         indices = np.arange(0, 49, 2, dtype=np.int64)
     else:
         indices = np.asarray(
-            config["release_acquisition"]["parent_49_zero_based_indices"],
+            config["formal_production_acquisition"]["parent_49_zero_based_indices"],
             dtype=np.int64,
         )
     if indices.size != 25 or not np.array_equal(indices, np.arange(0, 49, 2)):
-        raise ValueError("NGH-Seis v1.0 requires the 25 even-indexed reference shots")
+        raise ValueError("Frozen  production requires the 25 even-indexed reference shots")
     return {
         "source_locations": geometry49["source_locations"][indices],
         "receiver_locations": geometry49["receiver_locations"][indices],
@@ -78,11 +78,9 @@ def _select_25_shots(geometry49: dict, config: dict | None = None) -> dict:
         "original_49_indices": indices.astype(np.int32),
     }
 
-
 def _batch_records(nshot: int, batch_size: int):
     for batch_id, start in enumerate(range(0, nshot, batch_size)):
         yield batch_id, np.arange(start, min(start + batch_size, nshot), dtype=np.int64)
-
 
 def _migrate_batches(
     processed_gathers: np.ndarray,
@@ -97,7 +95,7 @@ def _migrate_batches(
     batch_size: int,
     stop_after_batches: int | None,
 ) -> dict:
-    recording = config["recording_candidate"]
+    recording = config["recording"]
     nt, dt = int(recording["nt"]), float(recording["dt_s"])
     f0 = float(recording["source_peak_frequency_hz"])
     t0 = float(recording["source_delay_s"])
@@ -179,7 +177,6 @@ def _migrate_batches(
         "new_runtime_s": float(sum(runtimes)),
     }
 
-
 def _sum_gradients(folder: Path, nshot: int, batch_size: int) -> tuple[np.ndarray, float]:
     total = None
     runtime = 0.0
@@ -189,7 +186,6 @@ def _sum_gradients(folder: Path, nshot: int, batch_size: int) -> tuple[np.ndarra
         total = np.asarray(gradient, dtype=np.float64) if total is None else total + gradient
         runtime += float(_read_json(folder / f"{stem}_runtime.json")["runtime_s"])
     return (total / float(nshot)).astype(np.float32), runtime
-
 
 def _render(
     path: Path,
@@ -237,7 +233,6 @@ def _render(
     fig.savefig(path, dpi=170)
     plt.close(fig)
 
-
 def _rtm_quality_gate(
     metrics: dict[str, float], correlation: float | None, rules: dict
 ) -> dict[str, bool]:
@@ -274,7 +269,6 @@ def _rtm_quality_gate(
     # migration, is computed only for a diagnostic subset, and would otherwise
     # apply a label-aware gate to only every Nth candidate.
     return checks
-
 
 def run_sample(
     sample_id: int,
@@ -361,7 +355,7 @@ def run_sample(
         "geology_version": geology_config["version"],
         "role": (
             f"{geology_config.get('public_release_name', geology_config['version'])} "
-            "NGH-Seis v1.0 25-shot marine-streamer forward and RTM workflow"
+            "25-shot marine-streamer forward and RTM"
         ),
         "device": torch.cuda.get_device_name(0),
         "shot_count": 25,
@@ -393,7 +387,7 @@ def run_sample(
             } if true_display is not None else None
         ),
         "admission": {
-            "policy": "ngh_seis_rtm_quality_gate",
+            "policy": "blind_smooth_rtm_gross_artifact_gate",
             "finite_input": bool(np.isfinite(smooth_conditioned).all()),
             "nonzero_input": bool(np.max(np.abs(smooth_conditioned)) > 0.0),
             "shape_512x96": smooth_conditioned.shape == (512, 96),
@@ -433,36 +427,8 @@ def run_sample(
             output / f"sample_{sample_id:04d}_training_pair25.png",
             raw[12], processed[12], smooth_display, true_display,
             geology["Sh_view"], geology["Sg_view"],
-            float(config["recording_candidate"]["dt_s"]), sample_id,
+            float(config["recording"]["dt_s"]), sample_id,
             geology_config.get("public_release_name", geology_config["version"]),
         )
     print(json.dumps(report, ensure_ascii=False, indent=2), flush=True)
     return report_path
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--sample-ids", type=int, nargs="+", default=[1, 3, 4])
-    parser.add_argument("--batch-size", type=int, default=4)
-    parser.add_argument("--geology-config", type=Path, default=GEOLOGY_CONFIG)
-    parser.add_argument("--geology-folder", type=Path, default=GEOLOGY_FOLDER)
-    parser.add_argument("--output", type=Path, default=OUTPUT)
-    parser.add_argument(
-        "--stop-after-batches", type=int, default=None,
-        help="Resume aid: run at most this many new batches per migration model",
-    )
-    args = parser.parse_args()
-    for sample_id in args.sample_ids:
-        result = run_sample(
-            sample_id,
-            batch_size=args.batch_size,
-            stop_after_batches=args.stop_after_batches,
-            geology_config_path=args.geology_config,
-            geology_folder=args.geology_folder,
-            output=args.output,
-        )
-        print(result if result is not None else f"sample {sample_id} incomplete; rerun to resume")
-
-
-if __name__ == "__main__":
-    main()

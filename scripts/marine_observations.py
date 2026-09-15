@@ -1,50 +1,52 @@
-"""Compare 25-shot and 49-shot Blake Ridge RTM on one fixed model.
-
-The 25-shot set is the even-index subset of the 49-shot survey. Observed
-gathers are generated once and cached. Each migration-shot gradient is saved
-individually, so the run can resume without repeating completed adjoints.
-No Sh/Sg field is accessed while building the migration model or deciding the
-label-free shot-density gate.
-"""
-
 from __future__ import annotations
 
 import argparse
+
 import json
+
 import sys
+
 import time
+
 from pathlib import Path
 
 import deepwave
+
 import matplotlib
 
 matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
+
 import numpy as np
+
 import torch
+
 from scipy.ndimage import gaussian_filter, shift
 
-
 PROJECT = Path(__file__).resolve().parents[1]
+
 sys.path.insert(0, str(PROJECT))
 
-from src.datasets.field_aligned_view import extract_seafloor_relative_view  # noqa: E402
-from src.datasets.rtm_scaling import condition_rtm_unscaled, display_normalize_rtm  # noqa: E402
+from src.datasets.field_aligned_view import extract_seafloor_relative_view
+
+from src.datasets.rtm_scaling import condition_rtm_unscaled, display_normalize_rtm
+
 from src.forward.benchmark_workflow import (  # noqa: E402
     measure_rtm_directional_artifacts,
     preprocess_observed_gather,
 )
 
-
 CONFIG_PATH = PROJECT / "configs" / "marine_streamer.json"
-GEOLOGY_CONFIG_PATH = PROJECT / "configs" / "ngh_seis_geology.json"
-GEOLOGY_FOLDER = PROJECT / "outputs" / "NGH-Seis-v1.0-generation" / "geology_candidates"
-OUTPUT = PROJECT / "outputs" / "NGH-Seis-v1.0-quality-gate"
 
+GEOLOGY_CONFIG_PATH = PROJECT / "configs" / "ngh_seis_geology.json"
+
+GEOLOGY_FOLDER = PROJECT / "outputs" / "generated_geology"
+
+OUTPUT = PROJECT / "outputs" / "migration_work"
 
 def _read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def _exact_index(value_m: float, spacing_m: float, name: str) -> int:
     index = int(round(value_m / spacing_m))
@@ -52,10 +54,9 @@ def _exact_index(value_m: float, spacing_m: float, name: str) -> int:
         raise ValueError(f"{name}={value_m} m is not exact on a {spacing_m} m grid")
     return index
 
-
 def build_geometry(config: dict, device: torch.device) -> dict:
     grid = config["propagation_grid"]
-    acquisition = config["marine_acquisition_candidate"]
+    acquisition = config["marine_acquisition_reference"]
     dx, dz = float(grid["dx_m"]), float(grid["dz_m"])
     nshot = int(acquisition["shot_count"])
     shot_x_m = float(acquisition["shot_start_m"]) + np.arange(nshot) * float(
@@ -73,7 +74,7 @@ def build_geometry(config: dict, device: torch.device) -> dict:
     )
     source_z = _exact_index(float(acquisition["source_depth_m"]), dz, "source_depth")
     receiver_z = _exact_index(float(acquisition["receiver_depth_m"]), dz, "receiver_depth")
-    pml = int(config["recording_candidate"]["pml_width_cells"])
+    pml = int(config["recording"]["pml_width_cells"])
     safety = pml + 2
     if receiver_x.min() < safety or source_x.max() >= int(grid["nx"]) - safety:
         raise ValueError("survey geometry enters the PML safety margin")
@@ -94,7 +95,6 @@ def build_geometry(config: dict, device: torch.device) -> dict:
         "offset_m": offsets_m.astype(np.float32),
         "subset25_indices": np.arange(0, nshot, 2, dtype=np.int32),
     }
-
 
 def build_blake_migration_model(
     seafloor_m: np.ndarray,
@@ -154,7 +154,6 @@ def build_blake_migration_model(
     }
     return vp, rho, metadata
 
-
 def _extract_view(field: np.ndarray, seafloor_m: np.ndarray, geology_config: dict):
     grid = geology_config["grid"]
     crop = geology_config["network_crop"]
@@ -174,7 +173,6 @@ def _extract_view(field: np.ndarray, seafloor_m: np.ndarray, geology_config: dic
         antialias_lateral=True,
     )
 
-
 def _adjacent_trace_correlation(image: np.ndarray, mask: np.ndarray) -> float:
     values = []
     for ix in range(image.shape[1] - 1):
@@ -185,7 +183,6 @@ def _adjacent_trace_correlation(image: np.ndarray, mask: np.ndarray) -> float:
         if np.std(left) > 1.0e-12 and np.std(right) > 1.0e-12:
             values.append(float(np.corrcoef(left, right)[0, 1]))
     return float(np.median(values)) if values else 0.0
-
 
 def _structure_aware_trace_metrics(
     image: np.ndarray,
@@ -241,7 +238,6 @@ def _structure_aware_trace_metrics(
         float(np.median(roughness)) if roughness else float("inf"),
     )
 
-
 def _image_metrics(image: np.ndarray, mask: np.ndarray) -> dict:
     qc = measure_rtm_directional_artifacts(image, mask, dx=37.5, dz=3.0)
     common = mask[:, 1:] & mask[:, :-1]
@@ -255,7 +251,6 @@ def _image_metrics(image: np.ndarray, mask: np.ndarray) -> dict:
         "structure_aware_adjacent_trace_correlation_median": structure_corr,
         "structure_aware_normalized_lateral_roughness": structure_roughness,
     }
-
 
 def _bsr_contrast(image: np.ndarray, bsr_m: np.ndarray, seafloor_m: np.ndarray, mask: np.ndarray) -> float:
     x_out = 1310.0 + np.arange(95) * 37.5
@@ -271,7 +266,6 @@ def _bsr_contrast(image: np.ndarray, bsr_m: np.ndarray, seafloor_m: np.ndarray, 
         np.sqrt(np.mean(image[band] ** 2))
         / max(float(np.sqrt(np.mean(image[background] ** 2))), 1.0e-20)
     )
-
 
 def _render(
     path: Path,
@@ -312,12 +306,10 @@ def _render(
     fig.savefig(path, dpi=170)
     plt.close(fig)
 
-
 def _load_geology(sample_id: int) -> dict[str, np.ndarray]:
     path = GEOLOGY_FOLDER / f"sample_{sample_id:04d}_blake_geology.npz"
     with np.load(path, allow_pickle=False) as payload:
         return {name: payload[name].copy() for name in payload.files if name != "metadata_json"}
-
 
 def _generate_observations(
     geology: dict[str, np.ndarray],
@@ -334,7 +326,7 @@ def _generate_observations(
                 float(payload["runtime_s"]),
                 float(payload["peak_cuda_memory_gb"]),
             )
-    recording = config["recording_candidate"]
+    recording = config["recording"]
     nt, dt = int(recording["nt"]), float(recording["dt_s"])
     f0, t0 = float(recording["source_peak_frequency_hz"]), float(recording["source_delay_s"])
     source = deepwave.wavelets.ricker(f0, nt, dt, t0).to(device).reshape(1, 1, nt)
@@ -382,7 +374,6 @@ def _generate_observations(
     )
     return raw_stack, processed_stack, runtime_s, peak_memory_gb
 
-
 def _migrate_missing_shots(
     processed_gathers: np.ndarray,
     migration_vp: np.ndarray,
@@ -393,7 +384,7 @@ def _migrate_missing_shots(
     gradient_folder: Path,
     stop_after: int | None,
 ) -> dict:
-    recording = config["recording_candidate"]
+    recording = config["recording"]
     nt, dt = int(recording["nt"]), float(recording["dt_s"])
     f0, t0 = float(recording["source_peak_frequency_hz"]), float(recording["source_delay_s"])
     source = deepwave.wavelets.ricker(f0, nt, dt, t0).to(device).reshape(1, 1, nt)
@@ -440,7 +431,6 @@ def _migrate_missing_shots(
         torch.cuda.empty_cache()
     return {"completed_shots": completed, "new_runtime_s": float(sum(runtimes))}
 
-
 def _migration_batches(batch_size: int) -> list[tuple[str, int, np.ndarray]]:
     """Return parity-preserving batches so 25 and 49 shots remain separable."""
     if batch_size <= 0:
@@ -453,7 +443,6 @@ def _migration_batches(batch_size: int) -> list[tuple[str, int, np.ndarray]]:
         for ibatch, start in enumerate(range(0, indices.size, batch_size)):
             batches.append((parity_name, ibatch, indices[start:start + batch_size]))
     return batches
-
 
 def _migrate_missing_batches(
     processed_gathers: np.ndarray,
@@ -468,7 +457,7 @@ def _migrate_missing_batches(
     stop_after_batches: int | None,
 ) -> dict:
     """Save summed gradients for small parity-preserving shot batches."""
-    recording = config["recording_candidate"]
+    recording = config["recording"]
     nt, dt = int(recording["nt"]), float(recording["dt_s"])
     f0, t0 = float(recording["source_peak_frequency_hz"]), float(recording["source_delay_s"])
     base_source = deepwave.wavelets.ricker(f0, nt, dt, t0).to(device).reshape(1, 1, nt)
@@ -539,7 +528,6 @@ def _migrate_missing_batches(
         "new_runtime_s": float(sum(runtimes)),
         "batch_size": batch_size,
     }
-
 
 def _assemble(
     sample_id: int,
@@ -679,7 +667,6 @@ def _assemble(
     print(json.dumps(report, ensure_ascii=False, indent=2), flush=True)
     return report_path
 
-
 def run(
     sample_id: int,
     migration_stop_after_batches: int | None,
@@ -719,20 +706,3 @@ def run(
         geometry, batch_gradient_folder,
         forward_runtime, forward_peak_memory, batch_size,
     )
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--sample-id", type=int, default=1)
-    parser.add_argument(
-        "--migration-stop-after-batches", type=int, default=None,
-        help="Run at most this many new adjoint batches; omit for all remaining batches",
-    )
-    parser.add_argument("--batch-size", type=int, default=4)
-    args = parser.parse_args()
-    result = run(args.sample_id, args.migration_stop_after_batches, args.batch_size)
-    print(result if result is not None else "incomplete; rerun to resume")
-
-
-if __name__ == "__main__":
-    main()

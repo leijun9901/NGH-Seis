@@ -1,0 +1,60 @@
+{
+  "definition": "Each scale is fitted only on the corresponding OOD training fold.",
+  "folds": {
+    "holdout_diffuse_continuous_bsr": {
+      "scale": 23441.716796875,
+      "percentile": 99.5,
+      "clip_multiple": 4.0,
+      "fitted_split": "train",
+      "field_name": "input_rtm_conditioned_unscaled",
+      "sample_count": 720,
+      "value_count": 30643200,
+      "seed": 20260904,
+      "held_out_style": "diffuse_continuous_bsr"
+    },
+    "holdout_localized_enriched_lenses": {
+      "scale": 23432.505859375,
+      "percentile": 99.5,
+      "clip_multiple": 4.0,
+      "fitted_split": "train",
+      "field_name": "input_rtm_conditioned_unscaled",
+      "sample_count": 720,
+      "value_count": 30643200,
+      "seed": 20260905,
+      "held_out_style": "localized_enriched_lenses"
+    },
+    "holdout_discontinuous_bsr": {
+      "scale": 23522.1953125,
+      "percentile": 99.5,
+      "clip_multiple": 4.0,
+      "fitted_split": "train",
+      "field_name": "input_rtm_conditioned_unscaled",
+      "sample_count": 720,
+      "value_count": 30643200,
+      "seed": 20260906,
+      "held_out_style": "discontinuous_bsr"
+    },
+    "holdout_fault_gas_chimney": {
+      "scale": 23435.353515625,
+      "percentile": 99.5,
+      "clip_multiple": 4.0,
+      "fitted_split": "train",
+      "field_name": "input_rtm_conditioned_unscaled",
+      "sample_count": 720,
+      "value_count": 30643200,
+      "seed": 20260907,
+      "held_out_style": "fault_gas_chimney"
+    },
+    "holdout_anticline_structural_trap": {
+      "scale": 23484.4921875,
+      "percentile": 99.5,
+      "clip_multiple": 4.0,
+      "fitted_split": "train",
+      "field_name": "input_rtm_conditioned_unscaled",
+      "sample_count": 720,
+      "value_count": 30643200,
+      "seed": 20260908,
+      "held_out_style": "anticline_structural_trap"
+    }
+  }
+}

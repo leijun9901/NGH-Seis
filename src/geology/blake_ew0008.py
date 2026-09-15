@@ -1,4 +1,4 @@
-"""EW0008-scale deep-water hydrate/free-gas geology for NGH-Seis v1.0."""
+"""EW0008-scale deep-water hydrate/free-gas geology."""
 
 from __future__ import annotations
 
@@ -221,12 +221,15 @@ def generate_blake_ew0008(
     nx, nz = int(g["nx_physical"]), int(g["nz"])
     dx, dz = float(g["dx_m"]), float(g["dz_m"])
     rng = np.random.default_rng(seed)
-    styles = config["scenario_styles"]
+    styles = config["geological_styles"]
     style = style_override or styles[(sample_index - 1) % len(styles)]
     continuity = config.get("lateral_continuity")
-    architecture_level = int(config.get("architecture_level", 1))
+    architecture_profile = str(config["architecture_profile"])
+    if architecture_profile != "frozen_release":
+        raise ValueError("Expected the frozen NGH-Seis architecture profile")
+    architecture_level = 3
     occurrence_index = (sample_index - 1) // max(len(styles), 1)
-    architecture_variant = "regional_diffuse_system"
+    architecture_variant = "regional_geometry"
     if architecture_level >= 2 and style == "diffuse_continuous_bsr":
         architecture_variant = "regional_diffuse_system"
     elif architecture_level >= 2 and style == "localized_enriched_lenses":
@@ -972,7 +975,7 @@ def generate_blake_ew0008(
         "hydrate_response_scale": hydrate_scale,
         "gas_response_scale": gas_scale,
         "gas_patchiness": gas_patchiness,
-        "architecture_level": architecture_level,
+        "architecture_profile": architecture_profile,
         "architecture_variant": architecture_variant,
         "seafloor_p95_absolute_slope": seafloor_p95_slope,
         "lateral_continuity_parameters": style_continuity,

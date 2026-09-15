@@ -1,0 +1,10 @@
+{
+  "scale": 23492.95703125,
+  "percentile": 99.5,
+  "clip_multiple": 4.0,
+  "fitted_split": "train",
+  "field_name": "input_rtm_conditioned_unscaled",
+  "sample_count": 800,
+  "value_count": 34048000,
+  "seed": 20260904
+}

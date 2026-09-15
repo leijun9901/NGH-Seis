@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "folds": {
+    "holdout_diffuse_continuous_bsr": {
+      "schema_version": 1,
+      "protocol": "structural OOD fold training split only",
+      "train_sample_count": 720,
+      "evaluation_region": "loss_mask",
+      "input": {
+        "migration_vp": {
+          "count": 30643200,
+          "mean": 1912.2200551916862,
+          "std": 192.2855439706829,
+          "min": 1519.505126953125,
+          "max": 2350.0
+        },
+        "standard_deviation_clip": 4.0
+      },
+      "target": {
+        "true_vp": {
+          "count": 30643200,
+          "mean": 1719.7919559341167,
+          "std": 139.7762583494204,
+          "min": 1200.1715087890625,
+          "max": 2347.400390625
+        },
+        "delta_vp": {
+          "count": 30643200,
+          "mean": -192.42809925756956,
+          "std": 102.23474085373668,
+          "min": -628.65966796875,
+          "max": 342.936279296875
+        },
+        "true_ai": {
+          "count": 30643200,
+          "mean": 3078275.713393212,
+          "std": 387576.58183440776,
+          "min": 1538373.125,
+          "max": 4773510.0
+        },
+        "log_ai": {
+          "count": 30643200,
+          "mean": 14.931968898381053,
+          "std": 0.1258821282027628,
+          "min": 14.246236003655337,
+          "max": 15.378592441316952
+        },
+        "log_ai_baseline": {
+          "formula": "log(AI_baseline) = intercept + slope * log(Vp_mig)",
+          "intercept": 6.603867985549707,
+          "slope": 1.102921482038866
+        },
+        "log_ai_residual": {
+          "count": 30643200,
+          "mean": 3.9272029423114894e-16,
+          "std": 0.05891995377669761,
+          "min": -0.4656660567835047,
+          "max": 0.35449055568977705
+        }
+      }
+    },
+    "holdout_localized_enriched_lenses": {
+      "schema_version": 1,
+      "protocol": "structural OOD fold training split only",
+      "train_sample_count": 720,
+      "evaluation_region": "loss_mask",
+      "input": {
+        "migration_vp": {
+          "count": 30643200,
+          "mean": 1912.3297848102184,
+          "std": 192.12048998151215,
+          "min": 1519.505126953125,
+          "max": 2350.0
+        },
+        "standard_deviation_clip": 4.0
+      },
+      "target": {
+        "true_vp": {
+          "count": 30643200,
+          "mean": 1720.7460223863397,
+          "std": 139.79472732371684,
+          "min": 1228.58544921875,
+          "max": 2347.400390625
+        },
+        "delta_vp": {
+          "count": 30643200,
+          "mean": -191.58376242387862,
+          "std": 102.07016693195655,
+          "min": -614.022705078125,
+          "max": 342.936279296875
+        },
+        "true_ai": {
+          "count": 30643200,
+          "mean": 3080998.622532389,
+          "std": 388415.41522534826,
+          "min": 1538373.125,
+          "max": 4773510.0
+        },
+        "log_ai": {
+          "count": 30643200,
+          "mean": 14.932838555854524,
+          "std": 0.12597514136288504,
+          "min": 14.246236003655337,
+          "max": 15.378592441316952
+        },
+        "log_ai_baseline": {
+          "formula": "log(AI_baseline) = intercept + slope * log(Vp_mig)",
+          "intercept": 6.611301997222163,
+          "slope": 1.1020423491468994
+        },
+        "log_ai_residual": {
+          "count": 30643200,
+          "mean": 5.3979154757828955e-15,
+          "std": 0.05948795374632488,
+          "min": -0.46663719729015085,
+          "max": 0.3537682680159566
+        }
+      }
+    },
+    "holdout_discontinuous_bsr": {
+      "schema_version": 1,
+      "protocol": "structural OOD fold training split only",
+      "train_sample_count": 720,
+      "evaluation_region": "loss_mask",
+      "input": {
+        "migration_vp": {
+          "count": 30643200,
+          "mean": 1912.160550673731,
+          "std": 192.29899272416134,
+          "min": 1523.89599609375,
+          "max": 2350.0
+        },
+        "standard_deviation_clip": 4.0
+      },
+      "target": {
+        "true_vp": {
+          "count": 30643200,
+          "mean": 1723.8277858297927,
+          "std": 139.4849785684656,
+          "min": 1200.1715087890625,
+          "max": 2347.400390625
+        },
+        "delta_vp": {
+          "count": 30643200,
+          "mean": -188.33276484393835,
+          "std": 103.06420768843546,
+          "min": -628.65966796875,
+          "max": 281.1240234375
+        },
+        "true_ai": {
+          "count": 30643200,
+          "mean": 3087908.327656364,
+          "std": 387842.1569097312,
+          "min": 1538625.25,
+          "max": 4773510.0
+        },
+        "log_ai": {
+          "count": 30643200,
+          "mean": 14.935132162602805,
+          "std": 0.12557261557770968,
+          "min": 14.24639988089532,
+          "max": 15.378592441316952
+        },
+        "log_ai_baseline": {
+          "formula": "log(AI_baseline) = intercept + slope * log(Vp_mig)",
+          "intercept": 6.65390374380832,
+          "slope": 1.0967185975949192
+        },
+        "log_ai_residual": {
+          "count": 30643200,
+          "mean": 4.682933239181218e-15,
+          "std": 0.059425312308962475,
+          "min": -0.466912178340678,
+          "max": 0.35181060536830877
+        }
+      }
+    },
+    "holdout_fault_gas_chimney": {
+      "schema_version": 1,
+      "protocol": "structural OOD fold training split only",
+      "train_sample_count": 720,
+      "evaluation_region": "loss_mask",
+      "input": {
+        "migration_vp": {
+          "count": 30643200,
+          "mean": 1912.172074861841,
+          "std": 192.02109376407782,
+          "min": 1519.505126953125,
+          "max": 2350.0
+        },
+        "standard_deviation_clip": 4.0
+      },
+      "target": {
+        "true_vp": {
+          "count": 30643200,
+          "mean": 1721.054227884503,
+          "std": 139.08111640833263,
+          "min": 1236.71923828125,
+          "max": 2347.400390625
+        },
+        "delta_vp": {
+          "count": 30643200,
+          "mean": -191.11784697733825,
+          "std": 102.85756060681497,
+          "min": -628.65966796875,
+          "max": 342.936279296875
+        },
+        "true_ai": {
+          "count": 30643200,
+          "mean": 3081034.0978249414,
+          "std": 386577.34304912883,
+          "min": 1538681.875,
+          "max": 4773510.0
+        },
+        "log_ai": {
+          "count": 30643200,
+          "mean": 14.932922076815077,
+          "std": 0.12541503397158105,
+          "min": 14.246436682551902,
+          "max": 15.378592441316952
+        },
+        "log_ai_baseline": {
+          "formula": "log(AI_baseline) = intercept + slope * log(Vp_mig)",
+          "intercept": 6.649712650314325,
+          "slope": 1.0969779388718044
+        },
+        "log_ai_residual": {
+          "count": 30643200,
+          "mean": 1.6642014045491096e-14,
+          "std": 0.05934267211222659,
+          "min": -0.46553545273167174,
+          "max": 0.35402176262306817
+        }
+      }
+    },
+    "holdout_anticline_structural_trap": {
+      "schema_version": 1,
+      "protocol": "structural OOD fold training split only",
+      "train_sample_count": 720,
+      "evaluation_region": "loss_mask",
+      "input": {
+        "migration_vp": {
+          "count": 30643200,
+          "mean": 1912.3759849350993,
+          "std": 191.90783839114457,
+          "min": 1519.505126953125,
+          "max": 2350.0
+        },
+        "standard_deviation_clip": 4.0
+      },
+      "target": {
+        "true_vp": {
+          "count": 30643200,
+          "mean": 1720.4947728213492,
+          "std": 137.91088670682976,
+          "min": 1200.1715087890625,
+          "max": 2288.461669921875
+        },
+        "delta_vp": {
+          "count": 30643200,
+          "mean": -191.8812121137501,
+          "std": 100.50569352673654,
+          "min": -628.65966796875,
+          "max": 342.936279296875
+        },
+        "true_ai": {
+          "count": 30643200,
+          "mean": 3079949.759151398,
+          "std": 384807.03530354216,
+          "min": 1538373.125,
+          "max": 4613347.5
+        },
+        "log_ai": {
+          "count": 30643200,
+          "mean": 14.932637820748164,
+          "std": 0.12486585055119287,
+          "min": 14.246236003655337,
+          "max": 15.344464290290222
+        },
+        "log_ai_baseline": {
+          "formula": "log(AI_baseline) = intercept + slope * log(Vp_mig)",
+          "intercept": 6.626387176235693,
+          "slope": 1.1000130374995112
+        },
+        "log_ai_residual": {
+          "count": 30643200,
+          "mean": 1.1675131297087377e-14,
+          "std": 0.057689565078852735,
+          "min": -0.4668040632110966,
+          "max": 0.2993750751415476
+        }
+      }
+    }
+  }
+}

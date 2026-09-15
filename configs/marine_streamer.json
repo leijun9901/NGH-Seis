@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "status": "frozen for the NGH-Seis v1.0 release",
-  "purpose": "reproduce the marine-streamer acoustic observations and seafloor-relative migration view used by NGH-Seis v1.0",
+  "status": "frozen for the NGH-Seis v1.0 public release",
+  "purpose": "Reproduce the marine streamer acoustic observations and seafloor-relative adjoint-migration view released with NGH-Seis v1.0.",
   "frozen_on": "2026-08-26",
   "propagation_grid": {
     "dx_m": 5.0,
@@ -13,40 +13,34 @@
     "water_points_per_wavelength_at_1500mps_35hz": 8.5714,
     "minimum_model_points_per_effective_wavelength_gate": 6.0
   },
-  "recording_candidate": {
-    "source_peak_frequency_hz": 14.0,
-    "effective_max_frequency_factor": 2.5,
-    "effective_max_frequency_hz": 35.0,
-    "dt_s": 0.004,
-    "nt": 1501,
-    "record_length_s": 6.0,
-    "fd_accuracy_order": 8,
-    "pml_width_cells": 20,
-    "source_delay_s": 0.12,
-    "surface_boundary": "absorbing PML; no pressure-release free surface",
-    "attenuation": "none",
-    "added_noise": "none"
-  },
-  "marine_acquisition_candidate": {
-    "role": "49-shot reference geometry used by the shot-density gate and as the parent grid for the frozen 25-shot subset",
-    "shot_count": 49,
-    "shot_spacing_m": 75.0,
-    "shot_start_m": 2200.0,
-    "shot_end_m": 5800.0,
-    "receiver_count": 128,
-    "receiver_spacing_m": 15.0,
-    "near_offset_m": 100.0,
-    "maximum_offset_m": 2005.0,
-    "source_depth_m": 10.0,
-    "receiver_depth_m": 15.0,
-    "streamer_direction": "receivers trail to smaller x than the source",
-    "grid_exactness": "all coordinates are exact integer multiples of the 5 m propagation grid"
-  },
-  "release_acquisition": {
+  "formal_production_acquisition": {
     "shot_count": 25,
     "parent_49_zero_based_indices": [
-      0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24,
-      26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48
     ],
     "effective_shot_spacing_m": 150.0,
     "shot_start_m": 2200.0,
@@ -62,7 +56,10 @@
   "fixed_preprocessing": {
     "demean_each_trace": true,
     "butterworth_order": 4,
-    "bandpass_hz": [3.0, 28.0],
+    "bandpass_hz": [
+      3.0,
+      28.0
+    ],
     "zero_phase": true,
     "direct_water_wave_velocity_m_s": 1500.0,
     "direct_mute_extra_s": 0.08,
@@ -83,8 +80,16 @@
     "vertical_extent_m": 1536.0,
     "water_samples_above_picked_seafloor": 64,
     "sediment_samples_below_picked_seafloor": 448,
-    "network_input_shape": [1, 512, 96],
-    "network_target_shape": [2, 512, 96],
+    "network_input_shape": [
+      1,
+      512,
+      96
+    ],
+    "network_target_shape": [
+      2,
+      512,
+      96
+    ],
     "coordinate_rule": "seafloor-relative sampling with anti-alias filtering before lateral decimation",
     "physical_pixel_note": "the 3 m vertical and 37.5 m horizontal spacings are intentionally anisotropic; array shape does not imply square physical pixels"
   },
@@ -108,5 +113,34 @@
     "no intrinsic attenuation or added acquisition noise",
     "regional ODP-constrained stochastic priors rather than through-well Site 997 inversion",
     "output is an acoustic adjoint-state migration or RTM-style velocity gradient, not industrial amplitude-preserving PSDM"
-  ]
+  ],
+  "recording": {
+    "source_peak_frequency_hz": 14.0,
+    "effective_max_frequency_factor": 2.5,
+    "effective_max_frequency_hz": 35.0,
+    "dt_s": 0.004,
+    "nt": 1501,
+    "record_length_s": 6.0,
+    "fd_accuracy_order": 8,
+    "pml_width_cells": 20,
+    "source_delay_s": 0.12,
+    "surface_boundary": "absorbing PML; no pressure-release free surface",
+    "attenuation": "none",
+    "added_noise": "none"
+  },
+  "marine_acquisition_reference": {
+    "role": "49-shot reference geometry used by the shot-density gate and as the parent grid for the frozen 25-shot subset",
+    "shot_count": 49,
+    "shot_spacing_m": 75.0,
+    "shot_start_m": 2200.0,
+    "shot_end_m": 5800.0,
+    "receiver_count": 128,
+    "receiver_spacing_m": 15.0,
+    "near_offset_m": 100.0,
+    "maximum_offset_m": 2005.0,
+    "source_depth_m": 10.0,
+    "receiver_depth_m": 15.0,
+    "streamer_direction": "receivers trail to smaller x than the source",
+    "grid_exactness": "all coordinates are exact integer multiples of the 5 m propagation grid"
+  }
 }

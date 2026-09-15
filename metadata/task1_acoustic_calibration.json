@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "protocol": "IID training split only",
+  "train_sample_count": 800,
+  "train_candidate_ids_sha256": "f21b1f1df989a7fdd48f26769a04de4db4262dd806ca7585f8c1b010f6df6b61",
+  "evaluation_region": "loss_mask",
+  "input": {
+    "migration_vp": {
+      "count": 34048000,
+      "mean": 1911.969132851131,
+      "std": 192.2139881964473,
+      "min": 1519.505126953125,
+      "max": 2350.0
+    },
+    "standard_deviation_clip": 4.0
+  },
+  "target": {
+    "true_vp": {
+      "count": 34048000,
+      "mean": 1721.6439443797349,
+      "std": 138.71797314365284,
+      "min": 1200.1715087890625,
+      "max": 2323.564697265625
+    },
+    "delta_vp": {
+      "count": 34048000,
+      "mean": -190.32518847139616,
+      "std": 102.48231049884946,
+      "min": -628.65966796875,
+      "max": 342.936279296875
+    },
+    "true_ai": {
+      "count": 34048000,
+      "mean": 3082965.047324509,
+      "std": 385628.1085235656,
+      "min": 1538625.25,
+      "max": 4708811.5
+    },
+    "log_ai": {
+      "count": 34048000,
+      "mean": 14.933593417779152,
+      "std": 0.12507017652580402,
+      "min": 14.24639988089532,
+      "max": 15.364946098694176
+    },
+    "log_ai_baseline": {
+      "formula": "log(AI_baseline) = intercept + slope * log(Vp_migration)",
+      "intercept": 6.672329890139968,
+      "slope": 1.094088569479556
+    },
+    "log_ai_residual": {
+      "count": 34048000,
+      "mean": 1.3650167045141684e-15,
+      "std": 0.05892598848109819,
+      "min": -0.46690062718848324,
+      "max": 0.29778674805083405
+    }
+  }
+}

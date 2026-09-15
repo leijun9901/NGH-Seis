@@ -17,7 +17,7 @@ from torch.nn import functional as F
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT))
 
-from src.datasets.ngh_seis_acoustic import make_ngh_seis_acoustic_loader  # noqa: E402
+from src.datasets.ngh_seis_task1 import make_ngh_seis_task1_loader  # noqa: E402
 from src.models.benchmark_models import MODEL_NAMES, build_benchmark_model  # noqa: E402
 
 
@@ -188,10 +188,10 @@ def run_epoch(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--release", type=Path, default=PROJECT / "outputs/NGH-Seis-v1.0-metadata"
+        "--release", type=Path, default=PROJECT / "outputs/NGH-Seis_v1.0/metadata"
     )
     parser.add_argument(
-        "--output", type=Path, default=PROJECT / "outputs/NGH-Seis-v1.0-acoustic-unet"
+        "--output", type=Path, default=PROJECT / "outputs/task1_iid_unet"
     )
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--model", choices=MODEL_NAMES, default="unet")
@@ -235,9 +235,9 @@ def main() -> None:
         protocol=args.protocol,
         ood_fold=args.ood_fold,
     )
-    train_loader = make_ngh_seis_acoustic_loader(args.release, "train", **loader_options)
-    val_loader = make_ngh_seis_acoustic_loader(args.release, "validation", **loader_options)
-    test_loader = make_ngh_seis_acoustic_loader(args.release, "test", **loader_options)
+    train_loader = make_ngh_seis_task1_loader(args.release, "train", **loader_options)
+    val_loader = make_ngh_seis_task1_loader(args.release, "validation", **loader_options)
+    test_loader = make_ngh_seis_task1_loader(args.release, "test", **loader_options)
     model = build_benchmark_model(
         args.model,
         in_channels=2,
@@ -299,7 +299,8 @@ def main() -> None:
             physical_baseline=True,
         )
     result = {
-        "task": "RTM-guided acoustic-property reconstruction",
+        "dataset": "NGH-Seis v1.0",
+        "task": "Task 1 acoustic-property reconstruction",
         "model": args.model,
         "parameter_count": parameter_count,
         "input_channels": ["conditioned_RTM", "migration_Vp"],
