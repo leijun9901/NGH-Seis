@@ -11,9 +11,17 @@ conda env create -f environment.yml
 conda activate ngh-seis
 ```
 
-## Benchmarks
+## Reproduce
 
 Task 1 predicts P-wave velocity and acoustic impedance; Task 2 predicts hydrate and free-gas saturation. Available baselines are U-Net, ResUNet, and DeepLabV3+.
+
+```bash
+python scripts/smoke_test.py outputs/NGH-Seis_v1.0
+```
+
+The command reads a released sample and performs one forward/backward update for both tasks. A successful run prints `"status": "PASS"`.
+
+Full training uses:
 
 ```bash
 python scripts/train_ngh_seis_task1.py --model unet
