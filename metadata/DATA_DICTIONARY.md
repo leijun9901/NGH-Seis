@@ -22,9 +22,7 @@ NGH-Seis_v1.0/
 
 ## File naming and identity
 
-The four files belonging to one realization share the same four-digit `candidate_id`, for example `sample_0001_*`. `candidate_id` is the deterministic generation identity and is retained for provenance. `release_index` is a continuous index from 1 to 1,000 used only to order the formal release.
-
-Candidate 880 was rejected by the RTM quality gate. Candidate 1001 passed but was not selected because it was the extra realization of family 0. Candidate 1005 was selected as the 200th realization of family 4. Therefore public `candidate_id` values need not be continuous; this is intentional and fully recorded in `candidate_ledger.json`.
+The four files belonging to one realization share the same four-digit `candidate_id`, for example `sample_0001_*`. This identifier is the immutable deterministic sample identity retained in filenames and manifests. Public `candidate_id` values need not be continuous. `release_index` is the continuous 1–1,000 ordering of the published release and should be used when a sequential index is required.
 
 ## Geological archive
 
@@ -104,7 +102,6 @@ Forty-nine regularly sampled realizations also contain `diagnostic_true_model_rt
 - `iid_splits_80_10_10.json`: stratified 800/100/100 train/validation/test split, with 160/20/20 realizations from each family.
 - `structural_ood_leave_one_style_out.json`: five leave-one-family-out folds, each containing 720/80/200 train/validation/test realizations.
 - `task1_acoustic_calibration.json`: Task 1 statistics fitted using only the IID training subset.
-- `candidate_ledger.json`: selected, rejected, and admitted-but-unselected candidate status.
 - `accepted_manifest.json` and `scientific_data_manifest.jsonl`: public file inventory and per-file metadata.
 - `NGH_SEIS_ARRAY_SCHEMA.json`: machine-readable shapes, dtypes, units, roles, and observed extrema.
 - `checksums.sha256`: SHA-256 digest for all 4,000 data files.
@@ -116,3 +113,5 @@ Hydrate saturation `Sh` and free-gas saturation `Sg` are fractions of total pore
 ## Important limitations
 
 The dataset is a two-dimensional variable-density acoustic benchmark. It excludes elastic conversions, intrinsic attenuation, a pressure-release free surface, source/receiver ghosts, free-surface multiples, added field noise, and three-dimensional propagation. Blake Ridge and ODP Leg 164 information supplies regional prior ranges; the realizations are not a digital twin or site-specific inversion of EW0008 or ODP Site 997.
+
+For download placement and loader paths, see `docs/DATA_ACCESS.md`. For a concise archive/key summary, see `docs/DATA_LAYOUT.md`.
