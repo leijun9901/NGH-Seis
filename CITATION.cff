@@ -1,8 +1,8 @@
 cff-version: 1.2.0
-message: "If you use NGH-Seis, please cite the dataset record, software release, and associated Data Descriptor."
-title: "NGH-Seis"
+message: "If you use NGH-Seis, cite the dataset record, this software repository and the associated Data Descriptor when available."
+title: "NGH-Seis: generation, quality-control, loading and reference-benchmark code"
 type: software
-version: 1.0
+version: "1.0"
 authors:
   - family-names: Lei
     given-names: Jun
@@ -10,12 +10,29 @@ authors:
   - family-names: Guo
     given-names: Zhenwei
     affiliation: Central South University
+  - family-names: Liu
+    given-names: Jianxin
+    affiliation: Central South University
 repository-code: "https://github.com/leijun9901/NGH-Seis"
 license: MIT
-abstract: "Code for generating, validating, loading, and benchmarking NGH-Seis v1.0."
+abstract: "Code for generating, validating, loading and benchmarking NGH-Seis v1.0. Dataset files are archived separately in Science Data Bank."
 keywords:
   - marine seismic
   - gas hydrate
   - free gas
   - synthetic dataset
   - seismic inversion
+references:
+  - type: dataset
+    title: "NGH-Seis v1.0: A physics-based synthetic marine seismic dataset for gas hydrate and free-gas characterization"
+    doi: "10.57760/sciencedb.013j7"
+    version: "V1"
+    publisher: "Science Data Bank"
+    year: 2026
+    authors:
+      - family-names: Lei
+        given-names: Jun
+      - family-names: Guo
+        given-names: Zhenwei
+      - family-names: Liu
+        given-names: Jianxin

@@ -1,13 +1,22 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.env
+.venv/
 .idea/
 .vscode/
 .ipynb_checkpoints/
 
 outputs/
+data/
+checkpoints/
 *.log
 *.pth
 *.pt
 *.ckpt
 *.partial
+
+tmp/
+temp/
+.DS_Store
+Thumbs.db
