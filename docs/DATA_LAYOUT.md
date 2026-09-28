@@ -12,7 +12,7 @@ NGH-Seis v1.0 contains four linked files per realization. Spatial arrays use ver
 | Geological properties | `data/geology/sample_NNNN_blake_geology.npz` | Full-grid and co-registered physical fields |
 | Observations | `data/observations/sample_NNNN_observations25.npz` | Raw and processed 25-shot gathers |
 | Training pair | `data/training_pairs/sample_NNNN_training_pair25.npz` | Quantitative RTM, targets, masks and coordinates |
-| RTM quality report | `quality/rtm_reports/sample_NNNN_rtm_quality.json` | Artifact metrics, thresholds and admission metadata |
+| RTM quality report | `quality/rtm_reports/sample_NNNN_rtm_report.json` | Artifact metrics, thresholds and admission metadata |
 
 ## Geological-property archive
 
