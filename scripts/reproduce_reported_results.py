@@ -69,8 +69,9 @@ def main():
     args.workdir.mkdir(parents=True,exist_ok=True)
     assets=args.assets_dir or args.workdir/'downloads';assets.mkdir(parents=True,exist_ok=True)
     tasks=['1','2'] if args.task=='both' else [args.task]
-    names=['NGH-Seis_v1.0_IID_test_bundle.zip']
-    for task in tasks:names.extend([f'task{task}_iid_deeplabv3plus.pt',f'task{task}_iid_deeplabv3plus_reference.json'])
+    model=config['reference_model']
+    names=[config['bundle']]
+    for task in tasks:names.extend([f'task{task}_iid_{model}.pt',f'task{task}_iid_{model}_reference.json'])
     for name in names:
         info=config['assets'][name];path=assets/name
         if not valid(path,info):
@@ -86,8 +87,8 @@ def main():
         destination=args.workdir/f'task{task}_evaluation.json'
         subprocess.run([sys.executable,str(PROJECT/'scripts/evaluate_checkpoint.py'),
             '--release',str(release/'metadata'),'--task',task,'--device',args.device,
-            '--checkpoint',str(assets/f'task{task}_iid_deeplabv3plus.pt'),
-            '--expected',str(assets/f'task{task}_iid_deeplabv3plus_reference.json'),
+            '--checkpoint',str(assets/f'task{task}_iid_{model}.pt'),
+            '--expected',str(assets/f'task{task}_iid_{model}_reference.json'),
             '--output',str(destination)],check=True)
         result=json.loads(destination.read_text(encoding='utf-8'))
         precision=config['reported_table_decimal_places']['task'+task]

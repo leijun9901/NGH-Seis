@@ -63,5 +63,13 @@
     "Fresh complete Science Data Bank download",
     "Public release and independent public-download Actions verification",
     "Permanent source-code archive"
-  ]
+  ],
+  "public_evaluation_design": {
+    "model": "unet",
+    "test_samples_per_task": 100,
+    "required_array_values_unchanged": true,
+    "derived_NPZ_containers": true,
+    "local_CPU_evaluation": "pass; all primary metrics match table precision",
+    "public_download_CI": "pending"
+  }
 }

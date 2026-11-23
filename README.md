@@ -137,7 +137,7 @@ IID ResUNet and DeepLabV3+ use learning rate `0.001`; all structural-OOD runs us
 
 ## Reproducibility
 
-The revision audit checked the local frozen release and reevaluated both IID DeepLabV3+ checkpoints against their recorded test metrics. It did not repeat 100-epoch training or a full remote download. See [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) for the exact scope and remaining code-archive requirement.
+The release provides a [one-command public U-Net evaluation](docs/REPORTED_RESULT_REPRODUCTION.md) for both tasks. Separate fresh 100-epoch DeepLabV3+ runs and all metric differences are documented in [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md). The full local release passed hash verification; a fresh full remote download is not claimed.
 
 ## Version mapping
 
@@ -159,7 +159,7 @@ Paper citation will be added after publication.
 
 ### Code
 
-Until a paper-release tag is published, cite this repository URL and the exact commit used. Do not use the dataset DOI as a code DOI. Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff).
+Cite the versioned `v1.0.0` release and the exact source commit. Do not use the dataset DOI as a code DOI. Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff).
 
 ## Licenses
 

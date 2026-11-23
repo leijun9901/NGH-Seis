@@ -2,7 +2,7 @@
 
 Verification is separated into installation, data integrity, checkpoint evaluation and fresh training. Passing one stage does not imply that the others have passed.
 
-The reviewer-revision audit verified all 4,000 files in the authors' frozen local release against the SHA-256 manifest. This was not a fresh full download from Science Data Bank. Evaluation of the original IID DeepLabV3+ checkpoints reproduced all recorded test metrics exactly on CUDA (PyTorch 2.5.1, RTX 4070). Public checkpoints and a hash-verified, complete fixed IID test subset are distributed with the [versioned release](https://github.com/leijun9901/NGH-Seis/releases/tag/v1.0.0); see [the one-command evaluation](REPORTED_RESULT_REPRODUCTION.md).
+The reviewer-revision audit verified all 4,000 files in the authors' frozen local release against the SHA-256 manifest. This was not a fresh full download from Science Data Bank. Evaluation of the original IID DeepLabV3+ checkpoints reproduced all recorded test metrics exactly on CUDA (PyTorch 2.5.1, RTX 4070). Public IID U-Net checkpoints and hash-verified lossless evaluation-field subsets for all fixed IID test samples are distributed with the [versioned release](https://github.com/leijun9901/NGH-Seis/releases/tag/v1.0.0); see [the one-command evaluation](REPORTED_RESULT_REPRODUCTION.md). These compact derived NPZs preserve the required array values but are not complete original NPZ containers.
 
 One fresh random-initialization 100-epoch DeepLabV3+ run per task also completed with the original settings and locally verified full dataset. Task 1 Vp/AI MAE changed from 42.87268/0.111304 to 43.22837/0.112979 (m/s and MRayl). Task 2 Sh/Sg Dice changed from 0.870144/0.772780 to 0.869419/0.766617. Original results remain unchanged. This single rerun is not bitwise identical and does not establish statistical equivalence or seed robustness. Exact commands, environment and all differences are in `metadata/fresh_training_reproduction.json`.
 
@@ -86,7 +86,7 @@ python scripts/evaluate_checkpoint.py \
   --output outputs/task1_checkpoint_evaluation.json
 ```
 
-Use `--task 2` with the corresponding Task 2 checkpoint and result file. The two original IID DeepLabV3+ checkpoints are public release assets, separate from the Science Data Bank dataset archive. Checkpoint evaluation and random-initialization training are distinct checks.
+Use `--task 2` with the corresponding Task 2 checkpoint and result file. The two original IID U-Net checkpoints are public release assets, separate from the Science Data Bank dataset archive. Use the U-Net filenames from the versioned release when following this example. Checkpoint evaluation and random-initialization training are distinct checks.
 
 ## Frozen conventions
 
