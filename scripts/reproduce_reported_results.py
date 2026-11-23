@@ -25,6 +25,19 @@ def valid(path,info):
 
 def download(url,path,info):
     if valid(path,info):return
+    if info.get('parts'):
+        paths=[]
+        for part in info['parts']:
+            target=path.parent/part['name']
+            download(url.rsplit('/',1)[0]+'/'+part['name'],target,part)
+            paths.append(target)
+        partial=path.with_suffix(path.suffix+'.assembling')
+        with partial.open('wb') as out:
+            for source in paths:
+                with source.open('rb') as f:
+                    for block in iter(lambda:f.read(4*1024*1024),b''):out.write(block)
+        if not valid(partial,info):raise RuntimeError('Reassembled asset failed SHA-256')
+        partial.replace(path);return
     partial=path.with_suffix(path.suffix+'.partial')
     offset=partial.stat().st_size if partial.exists() else 0
     headers={'User-Agent':'NGH-Seis-reproducibility'}

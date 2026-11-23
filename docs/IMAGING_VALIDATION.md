@@ -26,7 +26,12 @@ Values are median released-event offsets below defined surfaces; denominators co
 
 ## Reproduce the diagnostic
 
-Download `NGH-Seis_v1.0_interface_validation.zip` from the [versioned release](https://github.com/leijun9901/NGH-Seis/releases/tag/v1.0.0). Verify its SHA-256 using `metadata/interface_asset.json`, extract it, and run:
+Download and SHA-256 verify the logical archive from the [versioned release](https://github.com/leijun9901/NGH-Seis/releases/tag/v1.0.0), then extract it and run the diagnostic. Small transport parts are joined automatically; both part and complete-file hashes are checked:
+
+```bash
+python scripts/fetch_release_asset.py --manifest metadata/interface_asset.json \
+  --output outputs/NGH-Seis_v1.0_interface_validation.zip
+```
 
 ```bash
 python scripts/validate_imaging_horizons.py \
@@ -36,3 +41,5 @@ python scripts/validate_imaging_horizons.py \
 ```
 
 The package includes byte-identical geology/pair source files, five derived migration controls, a file manifest, reference CSV/JSON and vector figures. Use the public default geology configuration. Generating new migration controls requires the acquisition/processing pipeline and a suitable GPU; this command recomputes geology, associations and plots from the supplied controls.
+
+To regenerate all controls from the complete extracted dataset, use `python scripts/run_imaging_controls.py --release /path/to/NGH-Seis_v1.0 --output outputs/imaging_controls`. This additionally repeats two smooth-model checks and the declared direct-wave-mute sensitivity test; outputs must remain outside the frozen release.

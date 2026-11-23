@@ -8,11 +8,75 @@
   "assets": {
     "NGH-Seis_v1.0_IID_evaluation_views.zip": {
       "size_bytes": 64981788,
-      "sha256": "c956f4deaff31296cb2db30c682c3947a61d218ae5055a4a75ef94a5409c75d9"
+      "sha256": "c956f4deaff31296cb2db30c682c3947a61d218ae5055a4a75ef94a5409c75d9",
+      "parts": [
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part001",
+          "size_bytes": 8388608,
+          "sha256": "1bf77fb24733aa8bffc43fbf28cdbf4b3ec21fbd9bdf1b8de0d78ad071ae7132"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part002",
+          "size_bytes": 8388608,
+          "sha256": "f0c4a9203949a94020f933a5cf45678d6d0a7adf2a63acd244a5834dcbfe2b7a"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part003",
+          "size_bytes": 8388608,
+          "sha256": "0a6da85a86a44fc5bcdd29c283435d3854ef63b4246074851ad76c696cf5be1e"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part004",
+          "size_bytes": 8388608,
+          "sha256": "f1cf6a3c17cafb7d74a94a4a5ced1e26b3a4841a63accfb9b7a9386a38ad35c4"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part005",
+          "size_bytes": 8388608,
+          "sha256": "8c3a2748ad57045a376eecaa88507cf1f7cb1ed7d88e4d710dbad4716ed2430a"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part006",
+          "size_bytes": 8388608,
+          "sha256": "5130b52b58039615dbf19e786788b3fd6fbd55c3c30666f057f2b88f0d75e495"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part007",
+          "size_bytes": 8388608,
+          "sha256": "4a556af21737fd05996d55586f7bca1823611168c9c8ae1f66e97f4af037a8a0"
+        },
+        {
+          "name": "NGH-Seis_v1.0_IID_evaluation_views.zip.part008",
+          "size_bytes": 6261532,
+          "sha256": "7484d4c337ea1a23d61e22b62135a23319e95929babda8aac64de47145fbb41c"
+        }
+      ]
     },
     "task1_iid_unet.pt": {
       "size_bytes": 31112348,
-      "sha256": "956e00fd96f341ef821823362b6eb39344d06f9d5a05af6c8ccf9efbf0fa5906"
+      "sha256": "956e00fd96f341ef821823362b6eb39344d06f9d5a05af6c8ccf9efbf0fa5906",
+      "parts": [
+        {
+          "name": "task1_iid_unet.pt.part001",
+          "size_bytes": 8388608,
+          "sha256": "03a6810bcd9c5e8f658ecf94b604f3933878216db9158f2736edcad3b76de909"
+        },
+        {
+          "name": "task1_iid_unet.pt.part002",
+          "size_bytes": 8388608,
+          "sha256": "1cb14592acb8e0f8e3a3e98266dec785aefb3ac121b834bfab8b15abe3ca1812"
+        },
+        {
+          "name": "task1_iid_unet.pt.part003",
+          "size_bytes": 8388608,
+          "sha256": "c4311d7bf626a57a5150ba87a1388ade616c16858b5ad54e1d6ca86a5e258e82"
+        },
+        {
+          "name": "task1_iid_unet.pt.part004",
+          "size_bytes": 5946524,
+          "sha256": "9e252b684aa39f802ae17c381abaad7e9926aef42942aad38509f7b2438f6850"
+        }
+      ]
     },
     "task1_iid_unet_reference.json": {
       "size_bytes": 2556,
@@ -20,7 +84,29 @@
     },
     "task2_iid_unet.pt": {
       "size_bytes": 31111196,
-      "sha256": "6ed486a173fec55eb3499bebe9cffbe889d37e499086e337b69b3747a74fa5fa"
+      "sha256": "6ed486a173fec55eb3499bebe9cffbe889d37e499086e337b69b3747a74fa5fa",
+      "parts": [
+        {
+          "name": "task2_iid_unet.pt.part001",
+          "size_bytes": 8388608,
+          "sha256": "dbec326c9cd63c682789a06af4ede5e708d00186bc9f1dcac64fb9a41cb64153"
+        },
+        {
+          "name": "task2_iid_unet.pt.part002",
+          "size_bytes": 8388608,
+          "sha256": "79e541ef86bd2d6801062da5b42d27c68f33e1ef1fc38e5f28341393b1b70150"
+        },
+        {
+          "name": "task2_iid_unet.pt.part003",
+          "size_bytes": 8388608,
+          "sha256": "7976432522bbc6e3beaa9959f365a1f0ccdc7f8b4dbcc2fcac5ddae6d06c7523"
+        },
+        {
+          "name": "task2_iid_unet.pt.part004",
+          "size_bytes": 5945372,
+          "sha256": "3f0f6c7492b411dd960944854dc3589122c07c2e1897d14c88effa91ce7e8340"
+        }
+      ]
     },
     "task2_iid_unet_reference.json": {
       "size_bytes": 1318,

@@ -9,6 +9,8 @@ python scripts/reproduce_reported_results.py --device cpu
 
 The command downloads approximately 127 MB, verifies every asset by SHA-256, verifies the extracted files and IID test IDs, evaluates both original checkpoints on all 100 test samples, and compares the main metrics at manuscript table precision. Downloads use `.partial` files and can resume when the server supports Range. Repeating the command reuses valid assets.
 
+Larger logical files use small transport parts to avoid interrupted uploads. The command verifies each part, joins them automatically and checks the complete-file hash before reading any data or checkpoint.
+
 Use `--device cuda` for CUDA AMP evaluation in the reference configuration (PyTorch 2.5.1, CUDA 12.4, RTX 4070). CPU evaluation uses FP32. Both exact metric differences and rounded table comparisons are written to `outputs/reproduction/reported_result_reproduction.json`; numerical differences are not hidden. The process fails if a main metric does not match at the declared table precision.
 
 Reference main metrics are Vp MAE 49.79 m/s and AI MAE 0.132 MRayl for Task 1, and Sh MAE 0.00244, Sh Dice 0.872, Sg MAE 0.000401 and Sg Dice 0.784 for Task 2. These describe the supplied original U-Net checkpoints, trained with initial learning rate 0.0008. Fresh DeepLabV3+ training is documented separately and need not reproduce weights or every decimal when GPU operations are not deterministic.

@@ -1,5 +1,53 @@
 {
   "filename": "NGH-Seis_v1.0_interface_validation.zip",
   "sha256": "289c33485327eb9ecb30bad697a631810e588a251f651bdee8cdb71379615e00",
-  "size_bytes": 68415038
+  "size_bytes": 68415038,
+  "base_url": "https://github.com/leijun9901/NGH-Seis/releases/download/v1.0.0/",
+  "parts": [
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part001",
+      "size_bytes": 8388608,
+      "sha256": "ec545d60ca8368ff854bff7f63bc2a4c35e97b16f35dad52f4d7a7bd0917979e"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part002",
+      "size_bytes": 8388608,
+      "sha256": "02eed09f9834135f4406b0cfa49e0484f5dcbdb8cc5b48b9812f2f7a946b5bdc"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part003",
+      "size_bytes": 8388608,
+      "sha256": "e148b2f7b0c61171028e8e271bfb430bc79c5f3661894f4c120647f406f49c63"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part004",
+      "size_bytes": 8388608,
+      "sha256": "194a3185db601fbf53d04a7483b0bf0e90a41c3c57a8556a71685d62b4fa054b"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part005",
+      "size_bytes": 8388608,
+      "sha256": "38250c0c5bbd16e21285e7e5760c36a73228a662d0c289217bed83381aeed82a"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part006",
+      "size_bytes": 8388608,
+      "sha256": "06c208dc0bc712ee4e2d1ec0e347084451b562f1ffed5b866ae389787aa40845"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part007",
+      "size_bytes": 8388608,
+      "sha256": "25f69358736733adac6dfe342c27ce22ad0a5b58611e92a7134f55a9de26adb9"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part008",
+      "size_bytes": 8388608,
+      "sha256": "7672c7899383b80160d1a087453ba7bbbfde230e9cc11ffafaebae455b3245c1"
+    },
+    {
+      "name": "NGH-Seis_v1.0_interface_validation.zip.part009",
+      "size_bytes": 1306174,
+      "sha256": "8185d5e3e53ad03ddbbb5cbb1ddd9b3daadc5ea1f222585339034357e738628d"
+    }
+  ]
 }
