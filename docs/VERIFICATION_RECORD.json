@@ -45,7 +45,6 @@
       "all_recorded_metric_differences": 0
     },
     "fresh_100_epoch_training": true,
-    "checkpoint_public_archive_completed": false,
     "fresh_training_record": "metadata/fresh_training_reproduction.json"
   },
   "training_protocol_correction": {
@@ -60,9 +59,7 @@
     "noisy_benchmark_evaluation_performed": false
   },
   "uncompleted": [
-    "Fresh complete Science Data Bank download",
-    "Public release and independent public-download Actions verification",
-    "Permanent source-code archive"
+    "Fresh complete Science Data Bank bulk download"
   ],
   "public_evaluation_design": {
     "model": "unet",
@@ -70,6 +67,8 @@
     "required_array_values_unchanged": true,
     "derived_NPZ_containers": true,
     "local_CPU_evaluation": "pass; all primary metrics match table precision",
-    "public_download_CI": "pending"
-  }
+    "public_download_CI": "See the versioned public_verification.json release attachment"
+  },
+  "record_scope": "Author-side audit; post-publication download/CI/source-archive evidence is in the public release attachment public_verification.json",
+  "public_verification_record_url": "https://github.com/leijun9901/NGH-Seis/releases/download/v1.0.0/public_verification.json"
 }
