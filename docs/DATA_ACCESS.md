@@ -56,12 +56,12 @@ python scripts/train_ngh_seis_task2.py \
 
 The loaders infer the sibling `data/` directory from the supplied metadata path. Do not point `--release` at the GitHub `metadata/` mirror when running against real data; the loader needs the downloaded data files beside the downloaded metadata.
 
-## Verification command reserved for the next audit stage
+## Verify the extracted files
 
 ```bash
 python scripts/verify_scientific_data_release.py \
   /path/to/NGH-Seis_v1.0 \
-  /path/to/NGH-Seis_v1.0/metadata/accepted_manifest.json
+  /path/to/NGH-Seis_v1.0/metadata/accepted_manifest.json --mode sha256
 ```
 
-Validation status: pending final clean-environment reproducibility audit. No full Science Data Bank download or checksum verification was performed during the repository-documentation stage.
+The reviewer-revision audit checked all 1,000 realizations and 4,000 files in the authors' frozen local release against SHA-256 records, with no failures. A fresh complete download from Science Data Bank was not performed in that audit. Run this command on your downloaded copy; local verification does not establish remote transfer integrity.

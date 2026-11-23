@@ -1,0 +1,22 @@
+{
+  "tag": "v1.0.0",
+  "base_url": "https://github.com/leijun9901/NGH-Seis/releases/download/v1.0.0/",
+  "dataset_doi": "10.57760/sciencedb.013j7",
+  "scope": "100 fixed IID test pairs and their 100 original geology files, release metadata and two original reported DeepLabV3+ checkpoints",
+  "assets": {
+    "NGH-Seis_v1.0_IID_test_bundle.zip": {"sha256": "a332b53583f15b9ca2a87d21eab4756456755715b09ecc77d4fb995d75d7a565", "size_bytes": 1228834047},
+    "task1_iid_deeplabv3plus.pt": {"sha256": "067d9752f3420a18697da1bba0db5142b9e874d2ec54c65d5f0fe9f565c9a190", "size_bytes": 161730854},
+    "task1_iid_deeplabv3plus_reference.json": {"sha256": "cd726c9415bed8cd5ec56d2223e8995a83cf7da5e941a5f5bd4900fc2f3506d3", "size_bytes": 2715},
+    "task2_iid_deeplabv3plus.pt": {"sha256": "24d9a7d51b17f9a8bddb9d3b258a3f500c43589ce0244bdd874524f463948c27", "size_bytes": 161718374},
+    "task2_iid_deeplabv3plus_reference.json": {"sha256": "afee31b27c4be9e9fcdc22611a8a7fba2586b8c65a34daa947918128fb1ff7a3", "size_bytes": 1475}
+  },
+  "licenses": {"test_pair_data": "CC-BY-4.0", "code_and_reference_weights": "MIT"},
+  "reported_results": {
+    "task1": {"all_Vp_mps_MAE": 42.87268123225162, "all_AI_MRayl_MAE": 0.11130370452719689},
+    "task2": {"Sh_MAE": 0.0023007433038008842, "Sh_Dice": 0.8701441113838796, "Sg_MAE": 0.0004001810962992503, "Sg_Dice": 0.772780012198869}
+  },
+  "reported_table_decimal_places": {
+    "task1": {"all_Vp_mps_MAE": 2, "all_AI_MRayl_MAE": 3},
+    "task2": {"Sh_MAE": 5, "Sh_Dice": 3, "Sg_MAE": 6, "Sg_Dice": 3}
+  }
+}

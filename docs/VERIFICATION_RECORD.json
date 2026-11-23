@@ -1,0 +1,67 @@
+{
+  "dataset": "NGH-Seis v1.0",
+  "audit_date": "2026-11-23",
+  "source_commit_before_revision": "ed3ca00c1f7a1267cc54c95d7a0670d6200bced4",
+  "installation": {
+    "platform": "Windows",
+    "python": "3.12",
+    "environment": "new venv installed from requirements.txt",
+    "pip_check": "pass",
+    "synthetic_smoke_all_models_both_tasks": "pass",
+    "release_sample_smoke_all_models_both_tasks": "pass",
+    "release_sample_candidate_id": 17,
+    "scope": "one forward/backward/update per model and task"
+  },
+  "local_frozen_release": {
+    "mode": "sha256",
+    "status": "pass",
+    "samples_checked": 1000,
+    "files_checked": 4000,
+    "failures": [],
+    "fresh_full_remote_download": false
+  },
+  "mean_baseline": {
+    "iid_and_five_structural_ood_folds_recomputed": true,
+    "all_mean_metrics_equal_original_records": true
+  },
+  "checkpoint_evaluation": {
+    "device": "NVIDIA GeForce RTX 4070",
+    "torch": "2.5.1",
+    "task1": {
+      "model": "deeplabv3plus",
+      "test_samples": 100,
+      "checkpoint_epoch": 47,
+      "checkpoint_sha256": "ae127fcdc45ac78c40d4dad712b84eb17b5b5c904a3b582ea15ebd53ee485cf4",
+      "Vp_MAE_m_s": 42.87268123225162,
+      "AI_MAE_MRayl": 0.11130370452719689,
+      "all_recorded_metric_differences": 0
+    },
+    "task2": {
+      "model": "deeplabv3plus",
+      "test_samples": 100,
+      "checkpoint_epoch": 72,
+      "Sh_Dice": 0.8701441113838796,
+      "Sg_Dice": 0.772780012198869,
+      "all_recorded_metric_differences": 0
+    },
+    "fresh_100_epoch_training": true,
+    "checkpoint_public_archive_completed": false,
+    "fresh_training_record": "metadata/fresh_training_reproduction.json"
+  },
+  "training_protocol_correction": {
+    "two_iid_unet_runs_initial_lr": 0.0008,
+    "other_34_formal_runs_initial_lr": 0.001,
+    "three_absolute_target_ablation_runs_initial_lr": 0.0008,
+    "reported_results_retained": true
+  },
+  "noise_utility": {
+    "seed_repeatability": "pass",
+    "per_shot_window_snr_check": "pass",
+    "noisy_benchmark_evaluation_performed": false
+  },
+  "uncompleted": [
+    "Fresh complete Science Data Bank download",
+    "Public release and independent public-download Actions verification",
+    "Permanent source-code archive"
+  ]
+}

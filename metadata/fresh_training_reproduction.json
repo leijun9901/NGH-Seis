@@ -1,0 +1,251 @@
+{
+  "scope": "Two fresh random-initialization IID DeepLabV3+ training runs, 100 epochs each",
+  "dataset": "NGH-Seis v1.0 frozen local release",
+  "fresh_remote_download_performed_for_these_training_runs": false,
+  "original_reported_results_replaced": false,
+  "environment": {
+    "timestamp_utc": "2026-11-23T09:50:43.441909+00:00",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "versions": {
+      "numpy": "2.0.1",
+      "scipy": "1.16.3",
+      "torch": "2.5.1",
+      "torchvision": "0.20.1",
+      "deepwave": "0.0.27",
+      "numba": "0.62.1"
+    },
+    "cuda": "12.4",
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "torch_threads": 48,
+    "cudnn_version": 90100,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "environment_sensitive": true,
+    "notes": "Original configured seed retained; no deterministic-algorithm override introduced"
+  },
+  "python_version": "3.12.4",
+  "common_configuration": {
+    "epochs": 100,
+    "model": "deeplabv3plus",
+    "batch_size": 8,
+    "base_channels": 32,
+    "learning_rate": 0.001,
+    "loss": "smoothl1",
+    "num_workers": 0,
+    "seed": 20260824,
+    "amp": true,
+    "cache": false,
+    "protocol": "iid"
+  },
+  "task2_include_migration_vp": false,
+  "comparisons": {
+    "1": {
+      "scope": "Fresh random initialization and full 100 epoch training",
+      "task": 1,
+      "original_best_epoch": 47,
+      "fresh_best_epoch": 51,
+      "metrics": {
+        "loss": {
+          "original": 0.4612184143983401,
+          "fresh": 0.46437973701036894,
+          "difference": 0.0031613226120288385,
+          "relative_difference": 0.006854285330634049
+        },
+        "all_Vp_mps_MAE": {
+          "original": 42.87268123225162,
+          "fresh": 43.22837302983793,
+          "difference": 0.3556917975863101,
+          "relative_difference": 0.008296467292526961
+        },
+        "all_Vp_mps_RMSE": {
+          "original": 58.74702829730535,
+          "fresh": 58.94567313036992,
+          "difference": 0.19864483306457004,
+          "relative_difference": 0.0033813596844298865
+        },
+        "all_Vp_relative_MAE": {
+          "original": 0.024867977995545527,
+          "fresh": 0.02507429436161685,
+          "difference": 0.0002063163660713241,
+          "relative_difference": 0.008296467292526978
+        },
+        "all_Vp_R2": {
+          "original": 0.8340341376308811,
+          "fresh": 0.8329098594926934,
+          "difference": -0.0011242781381877176,
+          "relative_difference": -0.0013480001446718839
+        },
+        "all_AI_MRayl_MAE": {
+          "original": 0.11130370452719689,
+          "fresh": 0.11297873612085878,
+          "difference": 0.001675031593661891,
+          "relative_difference": 0.015049198953235195
+        },
+        "all_AI_MRayl_RMSE": {
+          "original": 0.1487627015867789,
+          "fresh": 0.15004418033873776,
+          "difference": 0.0012814787519588589,
+          "relative_difference": 0.008614247646015784
+        },
+        "all_AI_relative_MAE": {
+          "original": 0.036025277744321495,
+          "fresh": 0.036567429316441344,
+          "difference": 0.0005421515721198492,
+          "relative_difference": 0.015049198953235166
+        },
+        "all_AI_R2": {
+          "original": 0.8616468494663003,
+          "fresh": 0.8592529663318389,
+          "difference": -0.0023938831344614275,
+          "relative_difference": -0.002778264826180455
+        },
+        "reservoir_Vp_mps_MAE": {
+          "original": 45.779270006671666,
+          "fresh": 45.796985253857,
+          "difference": 0.017715247185336125,
+          "relative_difference": 0.0003869709408375097
+        },
+        "reservoir_Vp_mps_RMSE": {
+          "original": 67.44354783744049,
+          "fresh": 66.97703509657948,
+          "difference": -0.46651274086100614,
+          "relative_difference": -0.006917084818631488
+        },
+        "reservoir_Vp_relative_MAE": {
+          "original": 0.027853964714664586,
+          "fresh": 0.027864743389596276,
+          "difference": 1.077867493168988e-05,
+          "relative_difference": 0.0003869709408375574
+        },
+        "reservoir_Vp_R2": {
+          "original": 0.32966177451427614,
+          "fresh": 0.33890327419542965,
+          "difference": 0.009241499681153509,
+          "relative_difference": 0.028033276514299967
+        },
+        "reservoir_AI_MRayl_MAE": {
+          "original": 0.09723584897876274,
+          "fresh": 0.09769940480293036,
+          "difference": 0.0004635558241676274,
+          "relative_difference": 0.004767334568846851
+        },
+        "reservoir_AI_MRayl_RMSE": {
+          "original": 0.13294662988200784,
+          "fresh": 0.13281679817139025,
+          "difference": -0.00012983171061758947,
+          "relative_difference": -0.000976570152495156
+        },
+        "reservoir_AI_relative_MAE": {
+          "original": 0.03420263521701778,
+          "fresh": 0.034365690622233526,
+          "difference": 0.00016305540521574513,
+          "relative_difference": 0.004767334568846779
+        },
+        "reservoir_AI_R2": {
+          "original": 0.47127552799884376,
+          "fresh": 0.472307696836492,
+          "difference": 0.0010321688376482285,
+          "relative_difference": 0.00219016005781391
+        }
+      },
+      "checkpoint_sha256": "0b85e7b3eee7123e734a62d4329f3779c4ede166e37a5127ea61f0e90af804ed",
+      "all_metrics_exact": false,
+      "original_data_not_redownloaded": true
+    },
+    "2": {
+      "scope": "Fresh random initialization and full 100 epoch training",
+      "task": 2,
+      "original_best_epoch": 72,
+      "fresh_best_epoch": 66,
+      "metrics": {
+        "loss": {
+          "original": 0.006503873934539465,
+          "fresh": 0.006415693626667445,
+          "difference": -8.818030787202061e-05,
+          "relative_difference": -0.013558120707680138
+        },
+        "Sh_MAE": {
+          "original": 0.0023007433038008842,
+          "fresh": 0.0022746483150281405,
+          "difference": -2.6094988772743747e-05,
+          "relative_difference": -0.011341981841100737
+        },
+        "Sh_RMSE": {
+          "original": 0.008690100588950605,
+          "fresh": 0.008530555351793442,
+          "difference": -0.00015954523715716248,
+          "relative_difference": -0.018359423521520916
+        },
+        "Sh_active_MAE": {
+          "original": 0.014088804629671936,
+          "fresh": 0.013864646422888063,
+          "difference": -0.00022415820678387335,
+          "relative_difference": -0.015910377968602223
+        },
+        "Sh_Dice": {
+          "original": 0.8701441113838796,
+          "fresh": 0.869419425962765,
+          "difference": -0.0007246854211145903,
+          "relative_difference": -0.0008328337934299741
+        },
+        "Sg_MAE": {
+          "original": 0.0004001810962992503,
+          "fresh": 0.0004018140394884841,
+          "difference": 1.6329431892338014e-06,
+          "relative_difference": 0.0040805105596809785
+        },
+        "Sg_RMSE": {
+          "original": 0.0021830729176745087,
+          "fresh": 0.00223502680899113,
+          "difference": 5.1953891316621186e-05,
+          "relative_difference": 0.023798513964418753
+        },
+        "Sg_active_MAE": {
+          "original": 0.005685542841922024,
+          "fresh": 0.005897557798431698,
+          "difference": 0.0002120149565096735,
+          "relative_difference": 0.03729018712978352
+        },
+        "Sg_Dice": {
+          "original": 0.772780012198869,
+          "fresh": 0.7666173293582006,
+          "difference": -0.006162682840668454,
+          "relative_difference": -0.007974692335963957
+        }
+      },
+      "checkpoint_sha256": "cd1639d7e6055e2234eab0dc0ea5d45ae8e297ea9ccfbf91f2d386061025b2fe",
+      "all_metrics_exact": false,
+      "original_data_not_redownloaded": true
+    }
+  },
+  "core_source_sha256": {
+    "scripts/train_ngh_seis_task1.py": "4b0bc5f1860d8bf1bb05a600badaf6d367b85c11138e69ab3aa3e3289f76ad40",
+    "scripts/train_ngh_seis_task2.py": "53d7b448db42b8a0a13c2acef0859eaf47296e4c5677ce99f5e9229099e21af8",
+    "src/datasets/ngh_seis_task1.py": "b52b870e6d1c288e9c8599a131044c0c3c021f21d1e62f45d0b0b95c2b7b57a3",
+    "src/datasets/ngh_seis_task2.py": "b9743c5517153a5d1da0f600751ab882f43b78b3d2f2e0d073ce5f3121278eae",
+    "src/models/benchmark_models.py": "b2bd0cfb639433392a6de3a6e3b15d73befec119fb58fc3849975126744796e9"
+  },
+  "source_changes_during_run": [
+    "scripts/evaluate_checkpoint.py"
+  ],
+  "core_training_sources_changed_during_run": false,
+  "commands": {
+    "1": "python scripts/train_ngh_seis_task1.py --release /path/to/NGH-Seis_v1.0/metadata --output outputs/reproduce_task1_iid_deeplabv3plus --epochs 100 --model deeplabv3plus --batch-size 8 --base-channels 32 --learning-rate 0.001 --loss smoothl1 --num-workers 0 --seed 20260824 --protocol iid --amp",
+    "2": "python scripts/train_ngh_seis_task2.py --release /path/to/NGH-Seis_v1.0/metadata --output outputs/reproduce_task2_iid_deeplabv3plus --epochs 100 --model deeplabv3plus --batch-size 8 --base-channels 32 --learning-rate 0.001 --loss smoothl1 --num-workers 0 --seed 20260824 --protocol iid --amp"
+  },
+  "interpretation": "Both runs completed, but the fresh runs are not bitwise identical to the original runs. All differences are retained; no statistical equivalence or determinism is inferred from one rerun.",
+  "execution": {
+    "1": {
+      "exit_code": 0,
+      "elapsed_wall_s": 1691.7970000000205,
+      "start_utc": "2026-11-23T09:50:43.635421+00:00",
+      "end_utc": "2026-11-23T10:18:55.430024+00:00"
+    },
+    "2": {
+      "exit_code": 0,
+      "elapsed_wall_s": 1116.0779999999795,
+      "start_utc": "2026-11-23T10:18:55.595732+00:00",
+      "end_utc": "2026-11-23T10:37:31.675299+00:00"
+    }
+  }
+}

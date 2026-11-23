@@ -1,0 +1,33 @@
+name: Reported reference results
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cpu-reference-evaluation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install CPU evaluation dependencies
+        run: |
+          python -m pip install numpy==2.0.1 requests
+          python -m pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Download and verify frozen test subset and original weights
+        run: python scripts/reproduce_reported_results.py --device cpu --workdir outputs/reproduction
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reported-reference-evaluation
+          path: |
+            outputs/reproduction/integrity.json
+            outputs/reproduction/task1_evaluation.json
+            outputs/reproduction/task2_evaluation.json
+            outputs/reproduction/reported_result_reproduction.json

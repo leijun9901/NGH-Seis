@@ -85,7 +85,7 @@ python scripts/verify_scientific_data_release.py \
   outputs/NGH-Seis_v1.0/metadata/accepted_manifest.json
 ```
 
-This command is documented for the later reproducibility audit; the paper-release documentation update itself does not claim that a fresh download has already been validated. See [DATA_ACCESS.md](docs/DATA_ACCESS.md).
+Use `--mode sha256` for full content verification. The authors' frozen local release passed all 4,000 file hashes; a fresh complete archive download has not been audited. See [DATA_ACCESS.md](docs/DATA_ACCESS.md).
 
 ## Quick code check
 
@@ -95,7 +95,15 @@ The synthetic smoke test does not require the published dataset:
 python scripts/smoke_test.py --synthetic --model all
 ```
 
-Validation status: pending final clean-environment reproducibility audit.
+This checks model execution without measuring trained accuracy. See the scoped verification results in [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md).
+
+## Reproduce a reported result
+
+```bash
+python scripts/reproduce_reported_results.py --device cpu
+```
+
+This downloads and SHA-256-verifies the complete 100-sample IID test subset and both original DeepLabV3+ checkpoints (about 1.55 GB), then reevaluates both tasks against manuscript Tables 4–6. Use `--device cuda` for CUDA AMP. See [reported-result reproduction](docs/REPORTED_RESULT_REPRODUCTION.md) for scope, metric differences and fresh-training commands.
 
 ## Loading the dataset
 
@@ -121,22 +129,22 @@ Archived `Sh` and `Sg` values are dimensionless pore-volume fractions. Figures m
 Full IID training entry points are:
 
 ```bash
-python scripts/train_ngh_seis_task1.py --model unet
-python scripts/train_ngh_seis_task2.py --model unet
+python scripts/train_ngh_seis_task1.py --model unet --learning-rate 0.0008 --amp
+python scripts/train_ngh_seis_task2.py --model unet --learning-rate 0.0008 --amp
 ```
 
-Use `--protocol structural-ood --ood-fold FOLD_NAME` for a prescribed held-out-family fold. See [Reproducibility](docs/REPRODUCIBILITY.md) before interpreting results.
+IID ResUNet and DeepLabV3+ use learning rate `0.001`; all structural-OOD runs use `0.001` and add `--protocol structural-ood --ood-fold FOLD_NAME`. These documented settings differ from the two IID U-Net runs. Baseline, input-ablation and checkpoint-evaluation commands are in [Reproducibility](docs/REPRODUCIBILITY.md).
 
 ## Reproducibility
 
-The repository separates three verification levels: synthetic installation smoke test, real Science Data Bank sample loading, and reference benchmark reproduction. This paper-release preparation does not mark those stages as completed. See [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md).
+The revision audit checked the local frozen release and reevaluated both IID DeepLabV3+ checkpoints against their recorded test metrics. It did not repeat 100-epoch training or a full remote download. See [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) for the exact scope and remaining code-archive requirement.
 
 ## Version mapping
 
 - Dataset: NGH-Seis v1.0
 - Data archive: Science Data Bank V1
 - Data DOI: `10.57760/sciencedb.013j7`
-- Code release: pending final paper-release tag
+- Code release: `v1.0.0` (frozen NGH-Seis v1.0 data)
 - Paper: Scientific Data Data Descriptor
 
 ## Citation
